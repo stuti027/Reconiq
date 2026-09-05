@@ -13,18 +13,16 @@ canonical_status is always one of: `COMPLETED`, `FAILED`, `PENDING`, `UNKNOWN`.
 | BANK             | SETTLED                       | COMPLETED         |
 | BANK             | FAILED                        | FAILED            |
 
-## Fallback rule (not cut, per the no-shortcuts sprint plan)
+## Fallback rule
 
 If a mapper encounters a raw status not in this table (e.g. a future `REFUNDED`, `CANCELLED`,
-`PENDING` value that hasn't shown up in `sample_data.json` yet):
+`PENDING` value not yet present in `sample_data.json`):
 
-- Set `canonical_status = "UNKNOWN"` -- never silently default to `COMPLETED` or `FAILED`, since
-  guessing wrong on a reconciliation engine's own status field is worse than flagging it.
-- Still write the row (don't drop it) with the raw `status` preserved as-is, so it's queryable and
-  debuggable.
-- Also route a copy to the DLQ (`txn.canonical.dlq`) with the reason `"unmapped status: <value> for
-  source <source>"`, so it surfaces as a real signal to fix the mapping table, not just a silent
-  UNKNOWN sitting in Postgres.
+- Set `canonical_status = "UNKNOWN"`; never default to `COMPLETED` or `FAILED` for an unrecognized
+  value.
+- Still write the row, with the raw `status` preserved as-is, so it remains queryable.
+- Route a copy to the DLQ (`txn.canonical.dlq`) with reason `"unmapped status: <value> for source
+  <source>"`, so the gap is surfaced for the mapping table to be updated.
 
 ## Updating this table
 
