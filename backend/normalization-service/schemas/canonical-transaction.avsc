@@ -1,0 +1,22 @@
+{
+  "type": "record",
+  "name": "CanonicalTransaction",
+  "namespace": "com.reconiq.canonical",
+  "doc": "Canonical shape every source (BANK, PAYMENT_GATEWAY, LEDGER) is normalized into by Phase 2. transaction_id is the primary key downstream in Postgres -- it is unique per raw event, including both halves of a split settlement. settlement_id is a lookup/grouping field, not an identity key.",
+  "fields": [
+    { "name": "transaction_id", "type": "string", "doc": "Unique per raw event. Primary key in canonical_transactions." },
+    { "name": "event_id", "type": "string", "doc": "Original Phase 1 event id, kept for dedup/audit even if transaction_id repeats across retries." },
+    { "name": "reference_id", "type": ["null", "string"], "default": null },
+    { "name": "source", "type": "string", "doc": "BANK | PAYMENT_GATEWAY | LEDGER (open string, not enum -- new sources shouldn't be a breaking schema change)." },
+    { "name": "transaction_type", "type": ["null", "string"], "default": null },
+    { "name": "amount_value", "type": "double", "doc": "Flattened from source's amount.value; see canonical-schema-log or plan doc for why flattening was chosen over nesting." },
+    { "name": "amount_currency", "type": "string" },
+    { "name": "status", "type": "string", "doc": "Raw, source-specific status exactly as received (e.g. SUCCESS, SETTLED, FAILED) -- never overwritten, kept for traceability." },
+    { "name": "canonical_status", "type": "string", "doc": "Normalized status from the per-source status mapping table (see build-challenges-log / plan doc). One of COMPLETED, FAILED, PENDING, UNKNOWN." },
+    { "name": "event_timestamp", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "merchant_id", "type": ["null", "string"], "default": null },
+    { "name": "customer_id", "type": ["null", "string"], "default": null },
+    { "name": "settlement_id", "type": ["null", "string"], "default": null, "doc": "Grouping key for split settlements -- NOT unique, must never be used as a table primary key." },
+    { "name": "processed_at", "type": { "type": "long", "logicalType": "timestamp-millis" }, "doc": "When Phase 2 produced this canonical record, not when the source event occurred." }
+  ]
+}
