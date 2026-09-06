@@ -4,6 +4,14 @@ server:
 spring:
   application:
     name: reconciliation-service
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:reconciliation}
+    username: ${POSTGRES_USER:}
+    password: ${POSTGRES_PASSWORD:}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
   security:
     oauth2:
       client:
