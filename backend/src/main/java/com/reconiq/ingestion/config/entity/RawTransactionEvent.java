@@ -2,6 +2,9 @@ package com.reconiq.ingestion.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 
@@ -60,6 +63,7 @@ public class RawTransactionEvent {
     @Column(name = "description")
     private String description;
 
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "raw_payload", columnDefinition = "jsonb", nullable = false)
     private String rawPayload;
 
