@@ -22,6 +22,7 @@ public class AuditRecord {
     private String action;
     private String source;
     private String details;
+    private String recordHash;
 
     public Long getId() {
         return id;
@@ -73,5 +74,13 @@ public class AuditRecord {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    public String getRecordHash() {
+        return recordHash;
+    }
+
+    public void setRecordHash(String recordHash) {
+        this.recordHash = recordHash;
     }
 }

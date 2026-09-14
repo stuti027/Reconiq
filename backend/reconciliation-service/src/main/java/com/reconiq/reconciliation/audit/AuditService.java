@@ -19,6 +19,7 @@ public class AuditService {
         record.setEventType("USER");
         record.setActor(actor);
         record.setAction(action);
+        record.setRecordHash(AuditRecordHasher.createHash(record));
         return auditRecordRepository.save(record);
     }
 
@@ -29,6 +30,7 @@ public class AuditService {
         record.setAction(action);
         record.setSource(source);
         record.setDetails(details);
+        record.setRecordHash(AuditRecordHasher.createHash(record));
         return auditRecordRepository.save(record);
     }
 }

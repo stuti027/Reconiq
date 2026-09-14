@@ -6,6 +6,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -29,6 +30,7 @@ class AuditServiceTest {
         assertEquals("user-1", saved.getActor());
         assertEquals("GET /api/auth/me", saved.getAction());
         assertNull(saved.getSource());
+        assertStoredHashMatchesRecord(saved);
     }
 
     @Test
@@ -44,5 +46,12 @@ class AuditServiceTest {
         assertEquals("PHASE_3", saved.getSource());
         assertEquals("transaction TXN00006", saved.getDetails());
         assertNull(saved.getActor());
+        assertStoredHashMatchesRecord(saved);
+    }
+
+    private static void assertStoredHashMatchesRecord(AuditRecord saved) {
+        assertNotNull(saved.getRecordHash());
+        assertFalse(saved.getRecordHash().isEmpty());
+        assertEquals(AuditRecordHasher.createHash(saved), saved.getRecordHash());
     }
 }
