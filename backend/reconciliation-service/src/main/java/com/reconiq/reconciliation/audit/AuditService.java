@@ -8,9 +8,13 @@ import java.time.Instant;
 public class AuditService {
 
     private final AuditRecordRepository auditRecordRepository;
+    private final AuditRecordSigner auditRecordSigner;
 
-    public AuditService(AuditRecordRepository auditRecordRepository) {
+    public AuditService(
+            AuditRecordRepository auditRecordRepository,
+            AuditRecordSigner auditRecordSigner) {
         this.auditRecordRepository = auditRecordRepository;
+        this.auditRecordSigner = auditRecordSigner;
     }
 
     public AuditRecord recordUserAction(String actor, String action) {
@@ -19,7 +23,7 @@ public class AuditService {
         record.setEventType("USER");
         record.setActor(actor);
         record.setAction(action);
-        record.setRecordHash(AuditRecordHasher.createHash(record));
+        protectRecord(record);
         return auditRecordRepository.save(record);
     }
 
@@ -30,7 +34,20 @@ public class AuditService {
         record.setAction(action);
         record.setSource(source);
         record.setDetails(details);
-        record.setRecordHash(AuditRecordHasher.createHash(record));
+        protectRecord(record);
         return auditRecordRepository.save(record);
+    }
+
+    public boolean isRecordIntact(AuditRecord record) {
+        String currentHash = AuditRecordHasher.createHash(record);
+        if (!currentHash.equals(record.getRecordHash())) {
+            return false;
+        }
+        return auditRecordSigner.verify(record.getRecordHash(), record.getRecordSignature());
+    }
+
+    private void protectRecord(AuditRecord record) {
+        record.setRecordHash(AuditRecordHasher.createHash(record));
+        record.setRecordSignature(auditRecordSigner.signHash(record.getRecordHash()));
     }
 }

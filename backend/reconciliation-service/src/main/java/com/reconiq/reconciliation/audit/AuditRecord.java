@@ -1,5 +1,6 @@
 package com.reconiq.reconciliation.audit;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +24,8 @@ public class AuditRecord {
     private String source;
     private String details;
     private String recordHash;
+    @Column(length = 512)
+    private String recordSignature;
 
     public Long getId() {
         return id;
@@ -82,5 +85,13 @@ public class AuditRecord {
 
     public void setRecordHash(String recordHash) {
         this.recordHash = recordHash;
+    }
+
+    public String getRecordSignature() {
+        return recordSignature;
+    }
+
+    public void setRecordSignature(String recordSignature) {
+        this.recordSignature = recordSignature;
     }
 }
