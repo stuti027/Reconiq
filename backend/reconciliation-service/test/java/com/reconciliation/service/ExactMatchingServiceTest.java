@@ -21,7 +21,9 @@ class ExactMatchingServiceTest {
                 1000.00,
                 1000.00,
                 "INR",
-                "INR"
+                "INR",
+                "2026-08-25T10:00:00Z",
+                "2026-08-25T10:00:00Z"
         );
 
         assertEquals("MATCHED", result.getStatus());
@@ -41,7 +43,9 @@ class ExactMatchingServiceTest {
                 1000.00,
                 950.00,
                 "INR",
-                "INR"
+                "INR",
+                "2026-08-25T10:00:00Z",
+                "2026-08-25T10:00:00Z"
         );
 
         assertEquals("UNMATCHED", result.getStatus());
@@ -61,7 +65,9 @@ class ExactMatchingServiceTest {
                 1000.00,
                 1000.00,
                 "INR",
-                "INR"
+                "INR",
+                "2026-08-25T10:00:00Z",
+                "2026-08-25T10:00:00Z"
         );
 
         assertEquals("UNMATCHED", result.getStatus());
@@ -79,7 +85,9 @@ class ExactMatchingServiceTest {
                 1000.00,
                 1000.00,
                 "INR",
-                "USD"
+                "USD",
+                "2026-08-25T10:00:00Z",
+                "2026-08-25T10:00:00Z"
         );
 
         assertEquals("UNMATCHED", result.getStatus());

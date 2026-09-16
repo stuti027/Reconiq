@@ -13,7 +13,9 @@ public class ExactMatchingService implements MatchingService {
             double gatewayAmount,
             double bankAmount,
             String gatewayCurrency,
-            String bankCurrency) {
+            String bankCurrency,
+            String gatewayTimestamp,
+            String bankTimestamp) {
 
         boolean referenceMatches =
                 gatewayReferenceId != null &&

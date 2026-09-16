@@ -12,6 +12,8 @@ public interface MatchingService {
             double gatewayAmount,
             double bankAmount,
             String gatewayCurrency,
-            String bankCurrency
+            String bankCurrency,
+            String gatewayTimestamp,
+            String bankTimestamp
     );
 }
