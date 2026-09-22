@@ -7,6 +7,9 @@ import com.reconiq.normalization.input.RawEventParser;
 import com.reconiq.normalization.mapping.BankMapper;
 import com.reconiq.normalization.mapping.GatewayMapper;
 import com.reconiq.normalization.mapping.MapperRegistry;
+import com.reconiq.normalization.ops.DlqGuard;
+import com.reconiq.normalization.ops.HealthServer;
+import com.reconiq.normalization.ops.Metrics;
 import com.reconiq.normalization.rules.StatusMapping;
 import com.reconiq.normalization.topology.TopologyFactory;
 import com.reconiq.normalization.writer.ConflictChecker;
@@ -21,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -38,27 +42,42 @@ public class NormalizationApp {
 
     private static final Logger log = LoggerFactory.getLogger(NormalizationApp.class);
 
+    private static final AtomicReference<KafkaStreams> streamsRef = new AtomicReference<>();
+    private static final AtomicReference<WriterLoop> writerLoopRef = new AtomicReference<>();
+
     public static void main(String[] args) {
         AppConfig config = AppConfig.fromEnv();
+        log.info("Starting normalization-service: {}", config.summary());
 
         if (config.createTopicsOnStartup()) {
             TopicSetup.ensureTopicsExist(config);
         }
 
+        Metrics metrics = new Metrics();
+        DlqGuard dlqGuard = new DlqGuard(Duration.ofSeconds(config.guardWindowSeconds()), config.guardProcessingErrors(),
+                config.guardRejectRatio(), config.guardMinRecords(), config.guardAction(),
+                () -> {
+                    if (config.guardAction() == DlqGuard.Action.STOP) {
+                        log.error("DLQ guard action=stop: shutting down");
+                        stopEverything();
+                    }
+                });
+
         boolean runNormalizer = config.appMode() == AppConfig.AppMode.NORMALIZER || config.appMode() == AppConfig.AppMode.ALL;
         boolean runWriter = config.appMode() == AppConfig.AppMode.WRITER || config.appMode() == AppConfig.AppMode.ALL;
 
-        log.info("Starting normalization-service, mode={}", config.appMode());
-
         if (runNormalizer) {
-            startNormalizer(config);
+            startNormalizer(config, metrics, dlqGuard);
         }
         if (runWriter) {
-            startWriter(config);
+            startWriter(config, metrics);
+        }
+        if (config.healthPort() != 0) {
+            startHealthServer(config, metrics, dlqGuard);
         }
     }
 
-    private static void startNormalizer(AppConfig config) {
+    private static void startNormalizer(AppConfig config, Metrics metrics, DlqGuard dlqGuard) {
         StatusMapping statusMapping = StatusMapping.fromClasspath("status-mapping.csv");
         RawEventParser parser = new RawEventParser(Set.of("BANK", "PAYMENT_GATEWAY"));
         MapperRegistry mapperRegistry = new MapperRegistry(
@@ -71,7 +90,7 @@ public class NormalizationApp {
                 "specific.avro.reader", "true"), false);
 
         Topology topology = new TopologyFactory(config.inputTopics(), config.canonicalTopic(), config.dlqTopic(),
-                parser, mapperRegistry, canonicalSerde).build();
+                parser, mapperRegistry, canonicalSerde, metrics, dlqGuard).build();
 
         Properties props = new Properties();
         props.put(StreamsConfig.APPLICATION_ID_CONFIG, config.applicationId());
@@ -87,21 +106,22 @@ public class NormalizationApp {
             log.error("Uncaught exception in Streams client", throwable);
             return StreamsUncaughtExceptionHandler.StreamThreadExceptionResponse.SHUTDOWN_CLIENT;
         });
+        streamsRef.set(streams);
 
         Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
         streams.start();
     }
 
-    private static void startWriter(AppConfig config) {
+    private static void startWriter(AppConfig config, Metrics metrics) {
         var dataSource = DataSourceFactory.create(config.dbUrl(), config.dbUser(), config.dbPassword());
         DataSourceFactory.migrate(dataSource);
 
         Properties consumerProps = new Properties();
-        consumerProps.put(ConsumerConfig.GROUP_ID_CONFIG, "normalization-writer");
+        consumerProps.put(ConsumerConfig.GROUP_ID_CONFIG, config.writerGroupId());
         consumerProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, config.bootstrapServers());
         consumerProps.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
         consumerProps.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-        consumerProps.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "500");
+        consumerProps.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, String.valueOf(config.writerBatchSize()));
         consumerProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, org.apache.kafka.common.serialization.StringDeserializer.class);
         consumerProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaAvroDeserializer.class);
         consumerProps.put("schema.registry.url", config.schemaRegistryUrl());
@@ -118,7 +138,8 @@ public class NormalizationApp {
         KafkaProducer<String, String> producer = new KafkaProducer<>(producerProps);
 
         WriterLoop writerLoop = new WriterLoop(consumer, dataSource, new UpsertRepository(config.conflictPolicy()),
-                new ConflictChecker(), new DlqPublisher(producer, config.dlqTopic()), Duration.ofSeconds(1));
+                new ConflictChecker(), new DlqPublisher(producer, config.dlqTopic()), Duration.ofSeconds(1), metrics);
+        writerLoopRef.set(writerLoop);
 
         Thread writerThread = new Thread(writerLoop::run, "writer-loop");
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
@@ -128,5 +149,36 @@ public class NormalizationApp {
             dataSource.close();
         }));
         writerThread.start();
+    }
+
+    private static void startHealthServer(AppConfig config, Metrics metrics, DlqGuard dlqGuard) {
+        try {
+            HealthServer server = new HealthServer(config.healthPort(), config.appMode().name().toLowerCase(), metrics,
+                    dlqGuard,
+                    () -> {
+                        KafkaStreams streams = streamsRef.get();
+                        return streams == null ? null : streams.state().name();
+                    },
+                    () -> {
+                        WriterLoop writer = writerLoopRef.get();
+                        return writer == null ? null : writer.lastHeartbeat();
+                    },
+                    () -> {
+                        WriterLoop writer = writerLoopRef.get();
+                        return writer == null ? null : writer.lastDbCommit();
+                    });
+            server.start();
+            Runtime.getRuntime().addShutdownHook(new Thread(server::stop));
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException("Failed to start health server on port " + config.healthPort(), e);
+        }
+    }
+
+    private static void stopEverything() {
+        KafkaStreams streams = streamsRef.get();
+        if (streams != null) {
+            streams.close();
+        }
+        System.exit(1);
     }
 }

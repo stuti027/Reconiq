@@ -14,8 +14,6 @@ import org.slf4j.LoggerFactory;
 public final class TopicSetup {
 
     private static final Logger log = LoggerFactory.getLogger(TopicSetup.class);
-    private static final int PARTITIONS = 3;
-    private static final short REPLICATION_FACTOR = 1;
 
     private TopicSetup() {
     }
@@ -25,9 +23,10 @@ public final class TopicSetup {
         desired.add(config.canonicalTopic());
         desired.add(config.dlqTopic());
 
+        short replicationFactor = (short) config.topicReplication();
         try (Admin admin = Admin.create(Map.of("bootstrap.servers", config.bootstrapServers()))) {
             List<NewTopic> newTopics = desired.stream()
-                    .map(topic -> new NewTopic(topic, PARTITIONS, REPLICATION_FACTOR))
+                    .map(topic -> new NewTopic(topic, config.topicPartitions(), replicationFactor))
                     .toList();
             admin.createTopics(newTopics).values().forEach((name, future) -> {
                 try {

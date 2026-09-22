@@ -2,6 +2,7 @@ package com.reconiq.normalization.writer;
 
 import com.reconiq.canonical.CanonicalTransaction;
 import com.reconiq.normalization.dlq.DlqRecord;
+import com.reconiq.normalization.ops.Metrics;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.Duration;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 import javax.sql.DataSource;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -34,16 +36,35 @@ public class WriterLoop {
     private final ConflictChecker conflictChecker;
     private final DlqPublisher dlqPublisher;
     private final Duration pollTimeout;
+    private final Metrics metrics;
+
+    private final AtomicReference<Instant> lastHeartbeat = new AtomicReference<>(Instant.now());
+    private final AtomicReference<Instant> lastDbCommit = new AtomicReference<>();
 
     public WriterLoop(Consumer<String, CanonicalTransaction> consumer, DataSource dataSource,
             UpsertRepository upsertRepository, ConflictChecker conflictChecker, DlqPublisher dlqPublisher,
             Duration pollTimeout) {
+        this(consumer, dataSource, upsertRepository, conflictChecker, dlqPublisher, pollTimeout, new Metrics());
+    }
+
+    public WriterLoop(Consumer<String, CanonicalTransaction> consumer, DataSource dataSource,
+            UpsertRepository upsertRepository, ConflictChecker conflictChecker, DlqPublisher dlqPublisher,
+            Duration pollTimeout, Metrics metrics) {
         this.consumer = consumer;
         this.dataSource = dataSource;
         this.upsertRepository = upsertRepository;
         this.conflictChecker = conflictChecker;
         this.dlqPublisher = dlqPublisher;
         this.pollTimeout = pollTimeout;
+        this.metrics = metrics;
+    }
+
+    public Instant lastHeartbeat() {
+        return lastHeartbeat.get();
+    }
+
+    public Instant lastDbCommit() {
+        return lastDbCommit.get();
     }
 
     public void run() {
@@ -54,6 +75,7 @@ public class WriterLoop {
 
     /** One poll-process-commit cycle. Package-visible so tests can drive it deterministically. */
     void processOnce() {
+        lastHeartbeat.set(Instant.now());
         ConsumerRecords<String, CanonicalTransaction> records = consumer.poll(pollTimeout);
         if (records.isEmpty()) {
             return;
@@ -83,6 +105,7 @@ public class WriterLoop {
         try {
             List<UpsertResult> results = upsertRepository.upsertBatch(conn, transactions);
             conn.commit();
+            onDbCommit();
             checkDuplicatesForConflicts(conn, batch, results, dlqRecords);
         } catch (SQLException e) {
             conn.rollback();
@@ -107,10 +130,12 @@ public class WriterLoop {
             while (true) {
                 sleep(backoffMs);
                 consumer.poll(Duration.ZERO); // keep-alive only: partitions are paused, so this returns nothing
+                metrics.incDbRetries();
                 try (Connection conn = dataSource.getConnection()) {
                     conn.setAutoCommit(false);
                     List<UpsertResult> results = upsertRepository.upsertBatch(conn, transactions);
                     conn.commit();
+                    onDbCommit();
                     checkDuplicatesForConflicts(conn, batch, results, dlqRecords);
                     return;
                 } catch (SQLException e) {
@@ -140,6 +165,7 @@ public class WriterLoop {
                 if (SqlErrorClassifier.classify(e) != ErrorClass.DATA) {
                     throw new IllegalStateException("Unrecoverable error during row-by-row fallback", e);
                 }
+                metrics.incDbRejected();
                 dlqRecords.add(dlqRecord("REJECTED", "DB_REJECTED",
                         "SQLState=" + e.getSQLState() + " " + e.getMessage(), record));
             }
@@ -147,6 +173,7 @@ public class WriterLoop {
         conn.setAutoCommit(false);
         checkDuplicatesForConflicts(conn, succeeded, results, dlqRecords);
         conn.commit();
+        onDbCommit();
     }
 
     private void checkDuplicatesForConflicts(Connection conn, List<ConsumerRecord<String, CanonicalTransaction>> batch,
@@ -166,12 +193,20 @@ public class WriterLoop {
         Map<String, Boolean> sameContent = conflictChecker.sameContent(conn, duplicateTransactions);
         conn.commit();
         for (Map.Entry<String, Boolean> entry : sameContent.entrySet()) {
-            if (Boolean.FALSE.equals(entry.getValue())) {
+            if (Boolean.TRUE.equals(entry.getValue())) {
+                metrics.incDuplicatesSkipped();
+            } else {
+                metrics.incConflicts();
                 ConsumerRecord<String, CanonicalTransaction> record = duplicateRecords.get(entry.getKey());
                 dlqRecords.add(dlqRecord("REJECTED", "EVENT_ID_CONFLICT",
                         "event_id " + entry.getKey() + " already stored with different content", record));
             }
         }
+    }
+
+    private void onDbCommit() {
+        lastDbCommit.set(Instant.now());
+        metrics.incBatchesCommitted();
     }
 
     private DlqRecord dlqRecord(String kind, String reasonCode, String reasonDetail,

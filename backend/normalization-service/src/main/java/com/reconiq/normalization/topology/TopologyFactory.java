@@ -5,6 +5,8 @@ import com.reconiq.canonical.CanonicalTransaction;
 import com.reconiq.normalization.dlq.DlqRecord;
 import com.reconiq.normalization.input.RawEventParser;
 import com.reconiq.normalization.mapping.MapperRegistry;
+import com.reconiq.normalization.ops.DlqGuard;
+import com.reconiq.normalization.ops.Metrics;
 import java.util.List;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
@@ -27,15 +29,31 @@ public class TopologyFactory {
     private final RawEventParser parser;
     private final MapperRegistry mapperRegistry;
     private final Serde<CanonicalTransaction> canonicalSerde;
+    private final Metrics metrics;
+    private final DlqGuard dlqGuard;
 
     public TopologyFactory(List<String> inputTopics, String canonicalTopic, String dlqTopic,
                            RawEventParser parser, MapperRegistry mapperRegistry, Serde<CanonicalTransaction> canonicalSerde) {
+        this(inputTopics, canonicalTopic, dlqTopic, parser, mapperRegistry, canonicalSerde, new Metrics(), null);
+    }
+
+    public TopologyFactory(List<String> inputTopics, String canonicalTopic, String dlqTopic,
+                           RawEventParser parser, MapperRegistry mapperRegistry, Serde<CanonicalTransaction> canonicalSerde,
+                           Metrics metrics) {
+        this(inputTopics, canonicalTopic, dlqTopic, parser, mapperRegistry, canonicalSerde, metrics, null);
+    }
+
+    public TopologyFactory(List<String> inputTopics, String canonicalTopic, String dlqTopic,
+                           RawEventParser parser, MapperRegistry mapperRegistry, Serde<CanonicalTransaction> canonicalSerde,
+                           Metrics metrics, DlqGuard dlqGuard) {
         this.inputTopics = inputTopics;
         this.canonicalTopic = canonicalTopic;
         this.dlqTopic = dlqTopic;
         this.parser = parser;
         this.mapperRegistry = mapperRegistry;
         this.canonicalSerde = canonicalSerde;
+        this.metrics = metrics;
+        this.dlqGuard = dlqGuard;
     }
 
     public Topology build() {
@@ -44,7 +62,7 @@ public class TopologyFactory {
         KStream<String, String> raw = builder.stream(inputTopics, Consumed.with(Serdes.String(), Serdes.String()));
 
         KStream<String, Outcome> outcomes = raw.processValues(
-                () -> new NormalizeProcessor(parser, mapperRegistry));
+                () -> new NormalizeProcessor(parser, mapperRegistry, metrics, dlqGuard));
 
         outcomes.split(Named.as("route-"))
                 .branch((key, value) -> value instanceof Outcome.Canonical,
