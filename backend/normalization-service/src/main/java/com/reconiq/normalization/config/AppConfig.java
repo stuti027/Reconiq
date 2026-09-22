@@ -1,5 +1,6 @@
 package com.reconiq.normalization.config;
 
+import com.reconiq.normalization.writer.ConflictPolicy;
 import java.util.List;
 
 public record AppConfig(
@@ -9,7 +10,16 @@ public record AppConfig(
         String applicationId,
         String bootstrapServers,
         String schemaRegistryUrl,
-        boolean createTopicsOnStartup) {
+        boolean createTopicsOnStartup,
+        AppMode appMode,
+        String dbUrl,
+        String dbUser,
+        String dbPassword,
+        ConflictPolicy conflictPolicy) {
+
+    public enum AppMode {
+        NORMALIZER, WRITER, ALL
+    }
 
     public static AppConfig fromEnv() {
         return new AppConfig(
@@ -19,7 +29,12 @@ public record AppConfig(
                 env("APPLICATION_ID", "normalization-service"),
                 env("BOOTSTRAP_SERVERS", "localhost:9092"),
                 env("SCHEMA_REGISTRY_URL", "http://localhost:8081"),
-                Boolean.parseBoolean(env("CREATE_TOPICS_ON_STARTUP", "true")));
+                Boolean.parseBoolean(env("CREATE_TOPICS_ON_STARTUP", "true")),
+                AppMode.valueOf(env("APP_MODE", "all").toUpperCase(java.util.Locale.ROOT)),
+                env("DB_URL", "jdbc:postgresql://localhost:5432/reconciliation"),
+                env("DB_USER", "reconiq"),
+                env("DB_PASSWORD", "reconiq_local_dev"),
+                ConflictPolicy.valueOf(env("WRITER_CONFLICT_POLICY", "REPORT").toUpperCase(java.util.Locale.ROOT)));
     }
 
     private static String env(String key, String defaultValue) {

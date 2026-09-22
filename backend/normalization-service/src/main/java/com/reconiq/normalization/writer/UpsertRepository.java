@@ -11,18 +11,41 @@ import java.util.List;
 
 public class UpsertRepository {
 
-    private static final String UPSERT_SQL = """
+    private static final String BASE_INSERT = """
             INSERT INTO normalization.canonical_transactions
               (event_id, transaction_id, source, event_timestamp, reference_id, reference_key,
                transaction_type, amount_value, amount_currency, status, canonical_status,
                merchant_id, customer_id, settlement_id, description, processed_at)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            ON CONFLICT (event_id) DO NOTHING
             """;
+
+    private static final String DO_NOTHING = "ON CONFLICT (event_id) DO NOTHING";
+
+    /** processed_at is deliberately excluded: the first processed_at is always kept, even in UPDATE mode. */
+    private static final String DO_UPDATE = """
+            ON CONFLICT (event_id) DO UPDATE SET
+              transaction_id = EXCLUDED.transaction_id, source = EXCLUDED.source,
+              event_timestamp = EXCLUDED.event_timestamp, reference_id = EXCLUDED.reference_id,
+              reference_key = EXCLUDED.reference_key, transaction_type = EXCLUDED.transaction_type,
+              amount_value = EXCLUDED.amount_value, amount_currency = EXCLUDED.amount_currency,
+              status = EXCLUDED.status, canonical_status = EXCLUDED.canonical_status,
+              merchant_id = EXCLUDED.merchant_id, customer_id = EXCLUDED.customer_id,
+              settlement_id = EXCLUDED.settlement_id, description = EXCLUDED.description
+            """;
+
+    private final String upsertSql;
+
+    public UpsertRepository() {
+        this(ConflictPolicy.REPORT);
+    }
+
+    public UpsertRepository(ConflictPolicy policy) {
+        this.upsertSql = BASE_INSERT + (policy == ConflictPolicy.UPDATE ? DO_UPDATE : DO_NOTHING);
+    }
 
     /** Inserts every record in one JDBC batch on the given connection (caller controls the transaction). */
     public List<UpsertResult> upsertBatch(Connection conn, List<CanonicalTransaction> records) throws SQLException {
-        try (PreparedStatement stmt = conn.prepareStatement(UPSERT_SQL)) {
+        try (PreparedStatement stmt = conn.prepareStatement(upsertSql)) {
             for (CanonicalTransaction t : records) {
                 bind(stmt, t);
                 stmt.addBatch();
@@ -38,7 +61,7 @@ public class UpsertRepository {
 
     /** Inserts a single record in its own statement; used for the row-by-row fallback after a batch data error. */
     public UpsertResult upsertOne(Connection conn, CanonicalTransaction t) throws SQLException {
-        try (PreparedStatement stmt = conn.prepareStatement(UPSERT_SQL)) {
+        try (PreparedStatement stmt = conn.prepareStatement(upsertSql)) {
             bind(stmt, t);
             int count = stmt.executeUpdate();
             return count > 0 ? UpsertResult.INSERTED : UpsertResult.SKIPPED_DUPLICATE;
