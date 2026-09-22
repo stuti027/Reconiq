@@ -21,6 +21,8 @@
         <testcontainers.version>1.21.4</testcontainers.version>
         <postgresql.version>42.7.3</postgresql.version>
         <kafka-streams-test-utils.version>3.7.0</kafka-streams-test-utils.version>
+        <hikaricp.version>5.1.0</hikaricp.version>
+        <flyway.version>9.22.3</flyway.version>
     </properties>
 
     <repositories>
@@ -96,6 +98,16 @@
             <artifactId>kafka-streams-test-utils</artifactId>
             <version>${kafka-streams-test-utils.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>${hikaricp.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>${flyway.version}</version>
         </dependency>
     </dependencies>
 
