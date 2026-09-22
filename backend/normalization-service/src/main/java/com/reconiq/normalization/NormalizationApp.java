@@ -9,13 +9,24 @@ import com.reconiq.normalization.mapping.GatewayMapper;
 import com.reconiq.normalization.mapping.MapperRegistry;
 import com.reconiq.normalization.rules.StatusMapping;
 import com.reconiq.normalization.topology.TopologyFactory;
+import com.reconiq.normalization.writer.ConflictChecker;
+import com.reconiq.normalization.writer.DataSourceFactory;
+import com.reconiq.normalization.writer.DlqPublisher;
+import com.reconiq.normalization.writer.UpsertRepository;
+import com.reconiq.normalization.writer.WriterLoop;
+import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 import io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde;
+import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.Serde;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.Topology;
@@ -34,6 +45,20 @@ public class NormalizationApp {
             TopicSetup.ensureTopicsExist(config);
         }
 
+        boolean runNormalizer = config.appMode() == AppConfig.AppMode.NORMALIZER || config.appMode() == AppConfig.AppMode.ALL;
+        boolean runWriter = config.appMode() == AppConfig.AppMode.WRITER || config.appMode() == AppConfig.AppMode.ALL;
+
+        log.info("Starting normalization-service, mode={}", config.appMode());
+
+        if (runNormalizer) {
+            startNormalizer(config);
+        }
+        if (runWriter) {
+            startWriter(config);
+        }
+    }
+
+    private static void startNormalizer(AppConfig config) {
         StatusMapping statusMapping = StatusMapping.fromClasspath("status-mapping.csv");
         RawEventParser parser = new RawEventParser(Set.of("BANK", "PAYMENT_GATEWAY"));
         MapperRegistry mapperRegistry = new MapperRegistry(
@@ -64,7 +89,44 @@ public class NormalizationApp {
         });
 
         Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
-        log.info("Starting normalization-service, application.id={}", config.applicationId());
         streams.start();
+    }
+
+    private static void startWriter(AppConfig config) {
+        var dataSource = DataSourceFactory.create(config.dbUrl(), config.dbUser(), config.dbPassword());
+        DataSourceFactory.migrate(dataSource);
+
+        Properties consumerProps = new Properties();
+        consumerProps.put(ConsumerConfig.GROUP_ID_CONFIG, "normalization-writer");
+        consumerProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, config.bootstrapServers());
+        consumerProps.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
+        consumerProps.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        consumerProps.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "500");
+        consumerProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, org.apache.kafka.common.serialization.StringDeserializer.class);
+        consumerProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaAvroDeserializer.class);
+        consumerProps.put("schema.registry.url", config.schemaRegistryUrl());
+        consumerProps.put("specific.avro.reader", "true");
+        KafkaConsumer<String, CanonicalTransaction> consumer = new KafkaConsumer<>(consumerProps);
+        consumer.subscribe(List.of(config.canonicalTopic()));
+
+        Properties producerProps = new Properties();
+        producerProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, config.bootstrapServers());
+        producerProps.put(ProducerConfig.ACKS_CONFIG, "all");
+        producerProps.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, "true");
+        producerProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        producerProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        KafkaProducer<String, String> producer = new KafkaProducer<>(producerProps);
+
+        WriterLoop writerLoop = new WriterLoop(consumer, dataSource, new UpsertRepository(config.conflictPolicy()),
+                new ConflictChecker(), new DlqPublisher(producer, config.dlqTopic()), Duration.ofSeconds(1));
+
+        Thread writerThread = new Thread(writerLoop::run, "writer-loop");
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            writerThread.interrupt();
+            consumer.close();
+            producer.close();
+            dataSource.close();
+        }));
+        writerThread.start();
     }
 }
