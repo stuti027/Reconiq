@@ -180,6 +180,14 @@
                 </executions>
             </plugin>
 
+            <plugin>
+                <!-- Not bound to any build phase: only runs on explicit `mvn exec:java`,
+                     used by scripts/register-schema.sh to print the canonical schema. -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.2.0</version>
+            </plugin>
+
         </plugins>
     </build>
 </project>

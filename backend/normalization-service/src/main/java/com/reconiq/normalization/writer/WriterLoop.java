@@ -68,8 +68,15 @@ public class WriterLoop {
     }
 
     public void run() {
-        while (!Thread.currentThread().isInterrupted()) {
-            processOnce();
+        try {
+            while (!Thread.currentThread().isInterrupted()) {
+                processOnce();
+            }
+        } catch (RuntimeException e) {
+            // "Stop loudly": guarantee this is logged even if nothing else is watching. A silently
+            // dying thread was a real bug found in the sandbox (see build-challenges-log.md).
+            log.error("Writer loop stopping due to an unrecoverable error", e);
+            throw e;
         }
     }
 
@@ -85,18 +92,30 @@ public class WriterLoop {
         records.forEach(batch::add);
 
         List<DlqRecord> dlqRecords = new ArrayList<>();
-        try (Connection conn = dataSource.getConnection()) {
-            conn.setAutoCommit(false);
-            upsertBatchWithRetryAndFallback(conn, batch, dlqRecords);
-        } catch (SQLException e) {
-            throw new IllegalStateException("Unrecoverable error obtaining a database connection", e);
-        }
+        processBatch(batch, dlqRecords);
 
         for (DlqRecord dlqRecord : dlqRecords) {
             dlqPublisher.publish(dlqRecord);
         }
 
         consumer.commitSync();
+    }
+
+    /**
+     * Attempts the batch once with a fresh connection. If the database cannot even be reached --
+     * including a HikariCP connection-acquisition failure or timeout, before any query is ever sent --
+     * that is always an environment problem, never a data one, and falls through to the paused retry
+     * loop. This is the fix for a real bug found in the sandbox: a connection-acquisition failure was
+     * previously NOT classified at all and killed the writer thread silently (see build-challenges-log.md).
+     */
+    private void processBatch(List<ConsumerRecord<String, CanonicalTransaction>> batch, List<DlqRecord> dlqRecords) {
+        try (Connection conn = dataSource.getConnection()) {
+            conn.setAutoCommit(false);
+            upsertBatchWithRetryAndFallback(conn, batch, dlqRecords);
+        } catch (SQLException e) {
+            log.warn("Could not use the database connection ({}), entering environment-outage retry", e.getMessage());
+            retryWholeBatchUntilDatabaseRecovers(batch, dlqRecords);
+        }
     }
 
     private void upsertBatchWithRetryAndFallback(Connection conn, List<ConsumerRecord<String, CanonicalTransaction>> batch,

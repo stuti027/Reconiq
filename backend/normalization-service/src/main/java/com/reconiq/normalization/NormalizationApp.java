@@ -142,6 +142,8 @@ public class NormalizationApp {
         writerLoopRef.set(writerLoop);
 
         Thread writerThread = new Thread(writerLoop::run, "writer-loop");
+        writerThread.setUncaughtExceptionHandler((thread, throwable) ->
+                log.error("Writer thread died with an uncaught exception", throwable));
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             writerThread.interrupt();
             consumer.close();
@@ -174,11 +176,23 @@ public class NormalizationApp {
         }
     }
 
+    /**
+     * Called from the DlqGuard's onStop callback, which runs ON the Kafka Streams processing thread
+     * itself (NormalizeProcessor.process() -> recordOutcome -> here). Closing KafkaStreams directly on
+     * that same thread deadlocks: close() needs to join the very thread that is calling it, and a
+     * separately registered shutdown hook would try to close() again from yet another thread, waiting
+     * on the same stuck join. Found as a real bug during a manual drill (build-challenges-log.md) --
+     * System.exit() never returned. The fix: hand the shutdown off to a brand new thread instead.
+     */
     private static void stopEverything() {
-        KafkaStreams streams = streamsRef.get();
-        if (streams != null) {
-            streams.close();
-        }
-        System.exit(1);
+        Thread shutdown = new Thread(() -> {
+            KafkaStreams streams = streamsRef.get();
+            if (streams != null) {
+                streams.close(Duration.ofSeconds(10));
+            }
+            System.exit(1);
+        }, "guard-triggered-shutdown");
+        shutdown.setDaemon(true);
+        shutdown.start();
     }
 }

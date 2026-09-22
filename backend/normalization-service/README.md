@@ -165,3 +165,12 @@ A private sandbox stack (`phase2-sandbox/docker-compose.yml`, one directory abov
 provides Kafka, Schema Registry, Postgres and Kafka UI for solo development. To run this service
 against the team's shared stack instead, add a Schema Registry to it with
 `docker-compose.schema-registry.yml` in this directory.
+
+**Registering the canonical schema:** `auto.register.schemas=false` in production means the schema
+must already exist in the registry before the service can write a single record, and it must
+byte-match what the generated `CanonicalTransaction` class actually sends — registering by hand from
+the `.avsc` file's text is not the same thing and will fail with a `Schema not found` error at
+runtime. Always register (or re-register, e.g. after resetting a sandbox) with:
+```bash
+scripts/register-schema.sh [registry-url]   # default: http://localhost:8081
+```
