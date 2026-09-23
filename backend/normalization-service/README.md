@@ -124,11 +124,18 @@ reason, `flagged`, `duplicates_skipped`, `conflicts`, `db_rejected`, `db_retries
 
 ## Running
 
+Before running (either way below), the sandbox stack must be up and the canonical schema registered
+against it — see **Local development** below. Running without both will fail at runtime with a
+schema-not-found error.
+
 **Locally, without Docker:**
 ```bash
 mvn package
-java -jar target/normalization-service-<version>.jar
+java -Duser.timezone=UTC -jar target/normalization-service-<version>.jar
 ```
+The `-Duser.timezone=UTC` flag matters: a JVM whose host reports a legacy time zone name (e.g. the
+JDK's `Asia/Calcutta` instead of `Asia/Kolkata`) will fail to connect to Postgres without it. The
+Docker image below sets this automatically; a plain `java -jar` run does not.
 
 **With Docker** (image build is optional; the JAR runs directly with `java -jar` day to day):
 ```bash
