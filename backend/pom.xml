@@ -30,21 +30,23 @@
 
     <build>
 
-    <sourceDirectory>
-        reconciliation-service/src/main/java
-    </sourceDirectory>
+        <sourceDirectory>
+            reconciliation-service/src/main/java
+        </sourceDirectory>
 
-    <testSourceDirectory>
-        reconciliation-service/test/java
-    </testSourceDirectory>
+        <testSourceDirectory>
+            reconciliation-service/test/java
+        </testSourceDirectory>
 
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.5.3</version>
-        </plugin>
-    </plugins>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.3</version>
+            </plugin>
+
+        </plugins>
 
     </build>
 
