@@ -142,22 +142,7 @@ mvn test
 ```
 Requires Docker running (Testcontainers starts a throwaway `postgres:16` for the database tests).
 
-## Working assumptions
 
-Decided without asking Phase 1 or Phase 3 during the build; each is additive, so a wrong guess is
-cheap to correct in review:
-
-- Phase 1's numeric (epoch-seconds) timestamp format is intentional and stable; the parser also
-  accepts ISO-8601 text as a fallback.
-- The canonical timestamp is the envelope's `event_timestamp`, not the inner
-  `data.transaction.timestamp` (equal in the sample data).
-- Phase 3 queries the canonical table directly; the extra columns beyond its stated field list
-  (`event_id`, `source`, `canonical_status`, `description`, `reference_key`, `processed_at`) are
-  additive and safe to ignore if unused.
-- `reference_key` (upper-cased, non-alphanumerics removed) is provided for fuzzy matching; the raw
-  `reference_id` is also kept.
-- No ledger/CDC input exists yet on `main`; the topology has a clean extension point
-  (`SourceMapper`/`MapperRegistry`) for a future `LedgerMapper`, but none is built.
 
 ## Local development
 
