@@ -34,13 +34,12 @@ public record AppConfig(
         NORMALIZER, WRITER, ALL
     }
 
-    /** Names follow the existing root .env.example convention (KAFKA_HOST/PORT, POSTGRES_*). */
     public static AppConfig fromEnv() {
         String kafkaHost = env("KAFKA_HOST", "localhost");
         String kafkaPort = env("KAFKA_PORT", "9092");
         String postgresHost = env("POSTGRES_HOST", "localhost");
         String postgresPort = env("POSTGRES_PORT", "5432");
-        String postgresDb = env("POSTGRES_DB", "reconciliation");
+        String postgresDb = env("POSTGRES_DB", "reconiq_db");
 
         AppConfig config = new AppConfig(
                 List.of(env("INPUT_TOPICS", "raw-transactions").split(",")),
@@ -54,8 +53,8 @@ public record AppConfig(
                 parseInt("TOPIC_REPLICATION", 1),
                 parseEnum(AppMode.class, "APP_MODE", "all"),
                 "jdbc:postgresql://" + postgresHost + ":" + postgresPort + "/" + postgresDb,
-                env("POSTGRES_USER", "reconiq"),
-                env("POSTGRES_PASSWORD", "reconiq_local_dev"),
+                env("POSTGRES_USER", "reconiq_user"),
+                env("POSTGRES_PASSWORD", "reconiq_password"),
                 env("WRITER_GROUP_ID", "normalization-writer"),
                 parseInt("WRITER_BATCH_SIZE", 500),
                 parseEnum(ConflictPolicy.class, "WRITER_CONFLICT_POLICY", "REPORT"),

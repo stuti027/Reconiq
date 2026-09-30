@@ -1,6 +1,5 @@
-version: '3.8'
-
 services:
+
   # 1. PostgreSQL Database
   postgres:
     image: postgres:16-alpine
@@ -22,7 +21,7 @@ services:
       timeout: 5s
       retries: 5
 
-  # 2. Apache Zookeeper (Kafka Dependency)
+  # 2. Zookeeper
   zookeeper:
     image: confluentinc/cp-zookeeper:7.5.0
     container_name: reconiq-zookeeper
@@ -34,7 +33,7 @@ services:
     networks:
       - reconiq-net
 
-  # 3. Apache Kafka Broker
+  # 3. Kafka Broker
   kafka:
     image: confluentinc/cp-kafka:7.5.0
     container_name: reconiq-kafka
@@ -58,7 +57,7 @@ services:
       timeout: 5s
       retries: 5
 
-  # 4. Debezium / Kafka Connect (CDC)
+  # 4. Debezium / Kafka Connect
   debezium:
     image: debezium/connect:2.4
     container_name: reconiq-debezium
@@ -80,6 +79,31 @@ services:
       STATUS_STORAGE_REPLICATION_FACTOR: 1
       KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
       VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+    networks:
+      - reconiq-net
+
+  # 5. Confluent Schema Registry
+  schema-registry:
+    image: confluentinc/cp-schema-registry:7.5.0
+    container_name: reconiq-schema-registry
+    depends_on:
+      kafka:
+        condition: service_healthy
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:29092
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+    networks:
+      - reconiq-net
+
+  # 6. Redis
+  redis:
+    image: redis:7-alpine
+    container_name: reconiq-redis
+    ports:
+      - "6379:6379"
     networks:
       - reconiq-net
 
