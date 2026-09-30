@@ -152,7 +152,31 @@ public class ReconciliationProcessor {
             }
         }
 
-        return results;
+        if (results.isEmpty()) {
+                String transactionId = transaction.getTransactionId();
+
+                String gatewayTransactionId =
+                        "PAYMENT_GATEWAY".equals(transaction.getSource())
+                                ? transactionId
+                                : null;
+
+                String bankTransactionId =
+                        "BANK".equals(transaction.getSource())
+                                ? transactionId
+                                : null;
+
+                results.add(new MatchingResult(
+                        "UNMATCHED",
+                        gatewayTransactionId,
+                        bankTransactionId,
+                        "NO_MATCH",
+                        0.0,
+                        0,
+                        "No matching transaction found"
+                ));
+                }
+
+                return results;
     }
 
     private MatchingResult findDuplicate(
