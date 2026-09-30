@@ -5,6 +5,7 @@ import com.reconciliation.model.MatchingResult;
 import com.reconciliation.service.CanonicalTransactionMapper;
 import com.reconciliation.service.MatchingStateService;
 import com.reconciliation.service.ReconciliationProcessor;
+import com.reconciliation.model.MatchingState;
 
 import org.apache.avro.generic.GenericRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -20,27 +21,42 @@ public class CanonicalTransactionConsumer {
     private final MatchingStateService matchingStateService;
     private final ReconciliationProcessor reconciliationProcessor;
 
-    public CanonicalTransactionConsumer() {
+    public CanonicalTransactionConsumer(
+            MatchingStateService matchingStateService) {
+
         this.mapper = new CanonicalTransactionMapper();
-        this.matchingStateService = new MatchingStateService();
-        this.reconciliationProcessor = new ReconciliationProcessor();
+        this.matchingStateService = matchingStateService;
+        this.reconciliationProcessor =
+                new ReconciliationProcessor();
     }
 
     @KafkaListener(
-            topics = "txn.canonical",
-            groupId = "reconciliation-service"
+            topics = "${reconciliation.kafka.topic:txn.canonical}",
+            groupId = "${spring.kafka.consumer.group-id:reconciliation-service}"
     )
     public void consume(
             ConsumerRecord<String, GenericRecord> record) {
 
+        if (record == null || record.value() == null) {
+            return;
+        }
+
         CanonicalTransactionRecord transaction =
                 mapper.map(record.value());
+
+        if (transaction == null) {
+            return;
+        }
+
+        MatchingState state = matchingStateService.getState();
 
         List<MatchingResult> results =
                 reconciliationProcessor.process(
                         transaction,
-                        matchingStateService.getState()
+                        state
                 );
+
+        matchingStateService.persistReconciled(state);
 
         for (MatchingResult result : results) {
 

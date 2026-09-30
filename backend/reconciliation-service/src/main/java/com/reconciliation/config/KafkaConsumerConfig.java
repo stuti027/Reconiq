@@ -1,31 +1,33 @@
 package com.reconciliation.config;
 
+import io.confluent.kafka.serializers.AbstractKafkaSchemaSerDeConfig;
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
+import org.springframework.kafka.core.ConsumerFactory;
+import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@Configuration
 public class KafkaConsumerConfig {
 
-    private KafkaConsumerConfig() {
-    }
+    @Bean
+    public ConsumerFactory<String, Object> consumerFactory(
+            KafkaProperties kafkaProperties) {
 
-    public static Map<String, Object> consumerProperties() {
-
-        Map<String, Object> properties = new HashMap<>();
-
-        properties.put(
-                ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,
-                "localhost:9092"
-        );
-
-        properties.put(
-                ConsumerConfig.GROUP_ID_CONFIG,
-                "reconciliation-service"
-        );
+        Map<String, Object> properties =
+                new HashMap<>(
+                        kafkaProperties.buildConsumerProperties(null)
+                );
 
         properties.put(
                 ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
@@ -38,20 +40,24 @@ public class KafkaConsumerConfig {
         );
 
         properties.put(
-                ConsumerConfig.AUTO_OFFSET_RESET_CONFIG,
-                "earliest"
-        );
-
-        properties.put(
-                "schema.registry.url",
-                "http://localhost:8081"
-        );
-
-        properties.put(
                 "specific.avro.reader",
-                "false"
+                false
         );
 
-        return properties;
+        return new DefaultKafkaConsumerFactory<>(properties);
+    }
+
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, Object>
+    kafkaListenerContainerFactory(
+            ConsumerFactory<String, Object> consumerFactory) {
+
+        ConcurrentKafkaListenerContainerFactory<String, Object>
+                factory =
+                new ConcurrentKafkaListenerContainerFactory<>();
+
+        factory.setConsumerFactory(consumerFactory);
+
+        return factory;
     }
 }
