@@ -40,3 +40,8 @@ def health() -> dict:
     db = check_database()
     healthy = db["status"] == "UP" and db.get("pgvector") != "MISSING"
     return {"status": "UP" if healthy else "DOWN", "database": db}
+
+
+from app.investigate import router  # noqa: E402
+
+app.include_router(router)
