@@ -2,6 +2,8 @@
 
 Evidence is appended. `fetched` records tool calls already made so a later pass can skip them.
 `attempts` starts at 0 and goes up by one each time the reasoner is called.
+`confident` is the check step's verdict (after the guard), not the model's own claim.
+`pending` holds the fetches the next pass will run; it is empty unless the check step chose to retry.
 """
 
 from operator import or_
@@ -42,4 +44,6 @@ class InvestigationState(TypedDict):
     fetched: Annotated[set[FetchRequest], or_]
     attempts: int
     last_reasoning: ReasoningOutput | None
+    confident: bool
+    pending: list[FetchRequest]
     outcome: InvestigationOutcome | None
