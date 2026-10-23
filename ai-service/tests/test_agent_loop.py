@@ -18,7 +18,7 @@ from app.main import connect
 from app.tools.transactions import get_transaction_group as real_get_transaction_group
 from tests.test_similar_cases_tool import unit_vector
 
-PREFIX = "step3-45-"
+PREFIX = "agent-loop-test-"
 BY_SETTLEMENT = FetchRequest(tool="get_transaction_group", key="settlement_id", value="SET-SPLIT-001")
 
 
