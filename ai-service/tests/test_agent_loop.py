@@ -159,6 +159,19 @@ class SplitCaseTest(LoopTestBase):
         self.assertEqual(root_cause, "Split settlement paid in two bank transfers")
 
 
+class RepeatedIdsTest(LoopTestBase):
+    def test_same_id_twice_in_request_is_looked_up_once(self):
+        case_id, outcome = self.run_case(
+            ["TXN-FEE-001", "BANK-FEE-001", "TXN-FEE-001"], [sure(["E1", "E2"], "Gateway fee deducted")]
+        )
+        search_text = self.embedder.calls[0]
+        self.assertIn("PAYMENT_GATEWAY: 1 row, total 5000.00 INR", search_text)
+        self.assertIn("amount gap 75.00 INR", search_text)
+        self.assertEqual([e.label for e in self.reasoner.calls[0][1]], ["E1", "E2"])
+        self.assertEqual(len(outcome.evidence), 2)
+        self.assertIn("amount gap 75.00 INR", self.saved(case_id)[0])
+
+
 class RetryRulesTest(LoopTestBase):
     def test_bad_tool_key_pair_alone_does_not_retry(self):
         no_key = FetchRequest(tool="get_transaction_group", key=None, value="SET-SPLIT-001")
