@@ -58,7 +58,8 @@ def _compile(reasoner, embedder, get_transaction_group, find_similar_cases):
         new_items: list[EvidenceItem] = []
         new_fetches: set[FetchRequest] = set()
         rows: list[dict] = []
-        for txn_id in state["request"].transaction_ids:
+        # A request may repeat an id; looking it up twice would count its rows twice in the description.
+        for txn_id in dict.fromkeys(state["request"].transaction_ids):
             fetch = FetchRequest(tool="get_transaction_group", key="transaction_id", value=txn_id)
             found = get_transaction_group("transaction_id", txn_id)
             new_fetches.add(fetch)
