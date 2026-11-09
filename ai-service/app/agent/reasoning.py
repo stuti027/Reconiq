@@ -4,9 +4,12 @@ The model answers with one ReasoningOutput. It can ask for more evidence through
 tool itself: the graph decides whether a requested fetch is run.
 """
 
+import os
 from typing import TYPE_CHECKING, Literal, Protocol, Sequence
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from google import genai
+from google.genai import types
+from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
 
 from app.contracts import InvestigationRequest
 from app.tools.transactions import LookupKey
@@ -83,3 +86,88 @@ class Reasoner(Protocol):
     model: str
 
     def reason(self, request: InvestigationRequest, evidence: Sequence["LabelledEvidence"]) -> ReasoningOutput: ...
+
+
+# Finish reasons that mean the model (or the safety layer) refused to answer. Not ordinary invalid JSON.
+_REFUSAL_FINISH_REASONS = frozenset(
+    {
+        "SAFETY",
+        "RECITATION",
+        "BLOCKLIST",
+        "PROHIBITED_CONTENT",
+        "SPII",
+        "IMAGE_SAFETY",
+        "IMAGE_PROHIBITED_CONTENT",
+    }
+)
+_UNSPECIFIED_BLOCK = frozenset({"", "BLOCKED_REASON_UNSPECIFIED", "NONE"})
+
+
+class GeminiReasoner:
+    """Calls Gemini once per graph reasoning step. Invalid JSON is retried once; refusals are not."""
+
+    def __init__(self, client: object | None = None, model: str | None = None) -> None:
+        self._client = client or genai.Client(api_key=os.environ["GEMINI_API_KEY"])
+        self.model = model if model is not None else os.environ["GEMINI_MODEL"]
+
+    def reason(self, request: InvestigationRequest, evidence: Sequence["LabelledEvidence"]) -> ReasoningOutput:
+        # Imported here so this module can be loaded without importing evidence (which imports FetchRequest).
+        from app.agent.prompt import build_prompt
+
+        prompt = build_prompt(request, evidence)
+        last_invalid: Exception | None = None
+        for _attempt in range(2):
+            response = self._generate(prompt)
+            self._raise_if_refused(response)
+            try:
+                return self._parse(response)
+            except (ValidationError, ValueError, TypeError) as exc:
+                last_invalid = exc
+        raise LLMOutputInvalidError("Gemini returned invalid output twice") from last_invalid
+
+    def _generate(self, prompt: str) -> object:
+        config_kwargs: dict = {
+            "temperature": 0,
+            "response_mime_type": "application/json",
+        }
+        try:
+            config = types.GenerateContentConfig(
+                **config_kwargs,
+                response_schema=ReasoningOutput,
+            )
+        except (TypeError, ValueError, ValidationError):
+            config = types.GenerateContentConfig(**config_kwargs)
+        return self._client.models.generate_content(
+            model=self.model,
+            contents=prompt,
+            config=config,
+        )
+
+    def _parse(self, response: object) -> ReasoningOutput:
+        text = getattr(response, "text", None)
+        if text is None or not str(text).strip():
+            raise ValueError("Gemini returned an empty response")
+        return ReasoningOutput.model_validate_json(str(text).strip())
+
+    def _raise_if_refused(self, response: object) -> None:
+        feedback = getattr(response, "prompt_feedback", None)
+        block_reason = getattr(feedback, "block_reason", None) if feedback is not None else None
+        if _token(block_reason) not in _UNSPECIFIED_BLOCK:
+            raise LLMRefusedError(f"Gemini blocked the prompt: {block_reason}")
+
+        candidates = getattr(response, "candidates", None) or ()
+        if candidates:
+            finish = getattr(candidates[0], "finish_reason", None)
+            if _token(finish) in _REFUSAL_FINISH_REASONS:
+                raise LLMRefusedError(f"Gemini refused to answer: {finish}")
+            return
+
+        if feedback is not None:
+            raise LLMRefusedError("Gemini returned no candidates")
+
+
+def _token(value: object) -> str:
+    if value is None:
+        return ""
+    raw = getattr(value, "value", value)
+    return str(raw).upper()
