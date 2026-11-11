@@ -109,6 +109,12 @@ class GeminiReasonerTest(unittest.TestCase):
         json_schema = call["config"].response_json_schema
         self.assertTrue(schema is ReasoningOutput or schema is not None or json_schema is not None)
 
+    def test_schema_is_sent_as_json_schema(self) -> None:
+        self.reasoner([FakeResponse(VALID_JSON)]).reason(self.request, self.evidence)
+        config = self.client.models.calls[0]["config"]
+        self.assertIsNone(config.response_schema, "Gemini's response_schema rejects additionalProperties")
+        self.assertEqual(config.response_json_schema, ReasoningOutput.model_json_schema())
+
     def test_invalid_then_valid_succeeds(self) -> None:
         out = self.reasoner([FakeResponse("not-json"), FakeResponse(VALID_JSON)]).reason(self.request, self.evidence)
         self.assertTrue(out.confident)

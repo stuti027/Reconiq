@@ -131,9 +131,11 @@ class GeminiReasoner:
             "response_mime_type": "application/json",
         }
         try:
+            # response_schema rejects the additionalProperties that extra="forbid" adds (400 INVALID_ARGUMENT);
+            # response_json_schema takes the full JSON Schema, and Pydantic still checks the reply strictly.
             config = types.GenerateContentConfig(
                 **config_kwargs,
-                response_schema=ReasoningOutput,
+                response_json_schema=ReasoningOutput.model_json_schema(),
             )
         except (TypeError, ValueError, ValidationError):
             config = types.GenerateContentConfig(**config_kwargs)
