@@ -17,12 +17,14 @@ services:
       dockerfile: DockerFile
     container_name: reconiq-ai-service
     env_file: ai-service/.env
+    # The same values the postgres service above is created with. Fixed here, not read from a root .env, so a
+    # .env copied from the root .env.example (POSTGRES_DB=reconciliation) can't point ai-service elsewhere.
     environment:
       POSTGRES_HOST: postgres
       POSTGRES_PORT: "5432"
-      POSTGRES_DB: ${POSTGRES_DB:-reconiq_db}
-      POSTGRES_USER: ${POSTGRES_USER:-reconiq_user}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-reconiq_password}
+      POSTGRES_DB: reconiq_db
+      POSTGRES_USER: reconiq_user
+      POSTGRES_PASSWORD: reconiq_password
     depends_on:
       postgres:
         condition: service_healthy
