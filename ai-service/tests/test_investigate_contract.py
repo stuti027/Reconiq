@@ -172,7 +172,7 @@ class InvestigateContractTest(unittest.TestCase):
         self.assertEqual(row[0], "PHASE_6")
         self.assertEqual(row[1], ["TXN-A", "TXN-B"])
         self.assertEqual(row[2], {"cluster": "c1"})
-        self.assertEqual(row[3], "accepted")
+        self.assertEqual(row[3], "RECEIVED")
 
 
 if __name__ == "__main__":

@@ -7,8 +7,8 @@ from psycopg.types.json import Json
 
 from app.contracts import InvestigationRequest
 
-# Intake row only. A later worker can claim status='accepted'.
-# No locking, retries, or outbox here.
+# Intake row only: saved as RECEIVED for the worker (app/jobs.py) to claim.
+# The lifecycle columns after received_at belong to the worker; existing tables gain them at startup.
 SCHEMA_SQL = """
 CREATE SCHEMA IF NOT EXISTS investigation;
 
@@ -19,7 +19,16 @@ CREATE TABLE IF NOT EXISTS investigation.cases (
     context jsonb NOT NULL,
     content_hash text NOT NULL,
     status text NOT NULL,
-    received_at timestamptz NOT NULL DEFAULT now()
+    received_at timestamptz NOT NULL DEFAULT now(),
+    pickup_count integer NOT NULL DEFAULT 0,
+    result jsonb,
+    failure_reason text,
+    finished_at timestamptz,
+    updated_at timestamptz NOT NULL DEFAULT now(),
+    delivery_attempts integer NOT NULL DEFAULT 0,
+    next_delivery_at timestamptz,
+    last_error text,
+    delivered_at timestamptz
 );
 """
 
@@ -64,7 +73,7 @@ def accept_request(conn: psycopg.Connection, request: InvestigationRequest) -> s
             """
             INSERT INTO investigation.cases
                 (case_id, source_phase, transaction_ids, context, content_hash, status)
-            VALUES (%s, %s, %s, %s, %s, 'accepted')
+            VALUES (%s, %s, %s, %s, %s, 'RECEIVED')
             """,
             (
                 request.case_id,
