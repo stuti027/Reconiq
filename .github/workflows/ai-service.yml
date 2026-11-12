@@ -1,0 +1,57 @@
+name: ai-service
+
+# Runs the ai-service test suite (unit, graph and database tests). The real-Gemini tests stay skipped:
+# CI never has a Gemini key.
+on:
+  push:
+    paths:
+      - "ai-service/**"
+      - ".github/workflows/ai-service.yml"
+  pull_request:
+    paths:
+      - "ai-service/**"
+      - ".github/workflows/ai-service.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: pgvector/pgvector:0.8.7-pg16-trixie
+        env:
+          POSTGRES_DB: reconciliation
+          POSTGRES_USER: reconiq
+          POSTGRES_PASSWORD: ci-only-password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U reconiq -d reconciliation"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      POSTGRES_HOST: 127.0.0.1
+      POSTGRES_PORT: "5432"
+      POSTGRES_DB: reconciliation
+      POSTGRES_USER: reconiq
+      POSTGRES_PASSWORD: ci-only-password
+      GEMINI_API_KEY: not-used-in-ci
+      GEMINI_MODEL: gemini-3.8-flash
+      GEMINI_EMBEDDING_MODEL: gemini-embedding-2
+      WORKER_ENABLED: "false"
+    defaults:
+      run:
+        working-directory: ai-service
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13.7"
+          cache: pip
+          cache-dependency-path: ai-service/requirements.txt
+      - name: Install pinned dependencies
+        run: pip install -r requirements.txt
+      - name: Prepare the database
+        run: python tests/fixtures/seed_canonical.py
+      - name: Run tests
+        run: python -m unittest discover -s tests -v
