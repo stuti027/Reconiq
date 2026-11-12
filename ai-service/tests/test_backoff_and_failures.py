@@ -74,6 +74,13 @@ class ClassifyTest(unittest.TestCase):
     def test_gemini_retry_after_is_kept(self):
         self.assertEqual(classify(gemini_error(429, {"Retry-After": "12"})).retry_after, 12.0)
 
+    def test_invalid_gemini_key_is_environment(self):
+        response = httpx.Response(400, request=httpx.Request("POST", "https://gemini.test"))
+        body = {"error": {"code": 400, "message": "API key not valid.", "status": "INVALID_ARGUMENT",
+                          "details": [{"@type": "type.googleapis.com/google.rpc.ErrorInfo", "reason": "API_KEY_INVALID"}]}}
+        failure = classify(genai_errors.ClientError(400, body, response))
+        self.assertEqual((failure.failure_class, failure.reason_code), (FailureClass.ENVIRONMENT, None))
+
     def test_gemini_bad_request_is_a_case_failure(self):
         failure = classify(gemini_error(400))
         self.assertEqual((failure.failure_class, failure.reason_code), (FailureClass.CASE, PROCESSING_ERROR))

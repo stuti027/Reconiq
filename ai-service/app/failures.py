@@ -23,6 +23,8 @@ POISON_CASE = "POISON_CASE"
 
 # Gemini replies that say "not now" or "not with this configuration", rather than "not this case".
 _GEMINI_ENVIRONMENT_CODES = frozenset({401, 403, 404, 408, 429})
+# Google reports a bad or disabled key as 400 INVALID_ARGUMENT; the ErrorInfo reason tells it apart from a bad request.
+_GEMINI_ENVIRONMENT_REASONS = frozenset({"API_KEY_INVALID", "API_KEY_EXPIRED", "SERVICE_DISABLED"})
 
 
 class FailureClass(Enum):
@@ -45,7 +47,7 @@ def classify(exc: BaseException) -> Failure:
         return Failure(FailureClass.ENVIRONMENT, None)
     if isinstance(exc, genai_errors.APIError):
         code = getattr(exc, "code", None) or 0
-        if code >= 500 or code in _GEMINI_ENVIRONMENT_CODES:
+        if code >= 500 or code in _GEMINI_ENVIRONMENT_CODES or _error_reasons(exc) & _GEMINI_ENVIRONMENT_REASONS:
             response = getattr(exc, "response", None)
             headers = getattr(response, "headers", None)
             return Failure(FailureClass.ENVIRONMENT, None, retry_after_seconds(headers))
@@ -53,3 +55,11 @@ def classify(exc: BaseException) -> Failure:
     if isinstance(exc, (httpx.TransportError, TimeoutError, ConnectionError)):
         return Failure(FailureClass.ENVIRONMENT, None)
     return Failure(FailureClass.CASE, PROCESSING_ERROR)
+
+
+def _error_reasons(exc: genai_errors.APIError) -> set[str]:
+    """The `reason` of each ErrorInfo entry in a Google API error body, e.g. {"API_KEY_INVALID"}."""
+    body = getattr(exc, "details", None)
+    error = body.get("error", body) if isinstance(body, dict) else None
+    entries = error.get("details", []) if isinstance(error, dict) else []
+    return {e["reason"] for e in entries if isinstance(e, dict) and isinstance(e.get("reason"), str)}
