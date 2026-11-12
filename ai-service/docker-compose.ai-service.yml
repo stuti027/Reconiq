@@ -1,0 +1,32 @@
+# Adds ai-service to the team stack without editing the team's docker-compose.yml.
+#
+# From the repository root (ai-service/.env must exist; see ai-service/README.md):
+#   docker compose -f docker-compose.yml -f ai-service/docker-compose.ai-service.yml up -d --build
+#
+# The postgres service's image is swapped for one that includes pgvector. Start it on a fresh volume: the
+# pgvector image is built on a different Linux base than postgres:16-alpine and may sort text differently,
+# which can silently break text indexes on an existing data volume.
+
+services:
+  postgres:
+    image: pgvector/pgvector:0.8.7-pg16-trixie
+
+  ai-service:
+    build:
+      context: ./ai-service
+      dockerfile: DockerFile
+    container_name: reconiq-ai-service
+    env_file: ai-service/.env
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_DB: ${POSTGRES_DB:-reconiq_db}
+      POSTGRES_USER: ${POSTGRES_USER:-reconiq_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-reconiq_password}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    networks:
+      - reconiq-net
