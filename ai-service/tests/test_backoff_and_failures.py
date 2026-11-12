@@ -64,6 +64,16 @@ class ClassifyTest(unittest.TestCase):
             with self.subTest(exc=type(exc).__name__):
                 self.assertEqual(classify(exc).failure_class, FailureClass.ENVIRONMENT)
 
+    def test_missing_table_is_environment(self):
+        failure = classify(psycopg.errors.UndefinedTable('relation "normalization.canonical_transactions" does not exist'))
+        self.assertEqual((failure.failure_class, failure.reason_code), (FailureClass.ENVIRONMENT, None))
+
+    def test_other_database_errors_are_processing_errors(self):
+        for exc in (psycopg.errors.UndefinedColumn("no column"), psycopg.errors.SyntaxError("bad sql")):
+            with self.subTest(exc=type(exc).__name__):
+                failure = classify(exc)
+                self.assertEqual((failure.failure_class, failure.reason_code), (FailureClass.CASE, PROCESSING_ERROR))
+
     def test_gemini_busy_limited_or_misconfigured_is_environment(self):
         for code in (429, 500, 503, 401, 403, 404):
             with self.subTest(code=code):
@@ -91,7 +101,7 @@ class ClassifyTest(unittest.TestCase):
                 self.assertEqual(classify(exc).failure_class, FailureClass.ENVIRONMENT)
 
     def test_anything_else_is_a_processing_error(self):
-        for exc in (KeyError("x"), ValueError("bad"), psycopg.errors.UndefinedTable("no table")):
+        for exc in (KeyError("x"), ValueError("bad")):
             with self.subTest(exc=type(exc).__name__):
                 failure = classify(exc)
                 self.assertEqual((failure.failure_class, failure.reason_code), (FailureClass.CASE, PROCESSING_ERROR))

@@ -1,6 +1,7 @@
 """Sorts anything that goes wrong while investigating a case into one of two classes.
 
-ENVIRONMENT: the world is down (Postgres unreachable, Gemini busy, rate-limited, unreachable or misconfigured).
+ENVIRONMENT: the world is down (Postgres unreachable, a table this service reads not created yet, Gemini busy,
+rate-limited, unreachable or misconfigured).
 The case is not at fault, so it is put back and retried later; it never becomes a FAILED verdict, or one outage
 would flood Phase 5 with fake failures.
 
@@ -44,6 +45,9 @@ def classify(exc: BaseException) -> Failure:
     if isinstance(exc, ReasonerError):
         return Failure(FailureClass.CASE, exc.reason_code)
     if isinstance(exc, (psycopg.OperationalError, psycopg.InterfaceError)):
+        return Failure(FailureClass.ENVIRONMENT, None)
+    if isinstance(exc, psycopg.errors.UndefinedTable):
+        # e.g. Phase 2 hasn't created normalization.canonical_transactions yet: no case can succeed until it exists.
         return Failure(FailureClass.ENVIRONMENT, None)
     if isinstance(exc, genai_errors.APIError):
         code = getattr(exc, "code", None) or 0

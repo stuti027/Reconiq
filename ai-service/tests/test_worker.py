@@ -115,7 +115,8 @@ class InvestigateRoundTest(WorkerTestBase):
                 delete_test_rows()
 
     def test_environment_failures_put_the_case_back_untouched(self):
-        for exc in (psycopg.OperationalError("db down"), gemini_error(503), gemini_error(429), httpx.ConnectError("x")):
+        for exc in (psycopg.OperationalError("db down"), psycopg.errors.UndefinedTable("no canonical table yet"),
+                    gemini_error(503), gemini_error(429), httpx.ConnectError("x")):
             with self.subTest(exc=type(exc).__name__):
                 case_id = insert_case()
                 report = worker(investigate=raising(exc)).investigate_once()
