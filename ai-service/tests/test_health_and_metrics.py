@@ -57,6 +57,14 @@ class HealthTest(unittest.TestCase):
         self.assertEqual(response.status_code, 503)
         self.assertEqual(response.json()["status"], "DOWN")
 
+    def test_missing_canonical_table_is_degraded(self):
+        with mock.patch("app.main.CANONICAL_TABLE", "normalization.no_such_table"):
+            response = self.client.get("/health")
+        self.assertEqual(response.status_code, 200)
+        body = response.json()
+        self.assertEqual((body["status"], body["database"]["canonical_table"]), ("DEGRADED", "MISSING"))
+        self.assertTrue(any("does not exist yet" in r for r in body["reasons"]))
+
     def test_delivery_backlog_is_degraded(self):
         app.state.settings = settings_with(health_backlog_max=1)
         finish_failed(insert_case())

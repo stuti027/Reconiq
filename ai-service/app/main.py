@@ -15,6 +15,9 @@ load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
 log = logging.getLogger("app")
 
+# Phase 2's table, read by the transactions tool. Created by Phase 2, never by this service.
+CANONICAL_TABLE = "normalization.canonical_transactions"
+
 
 def connect() -> psycopg.Connection:
     """Open a connection to Postgres using the POSTGRES_* settings."""
@@ -102,13 +105,18 @@ def current_settings() -> Settings:
 
 
 def check_database() -> dict:
-    """Report whether Postgres is reachable and which pgvector version is enabled."""
+    """Report whether Postgres is reachable, which pgvector version is enabled and whether Phase 2's table exists."""
     try:
         with connect() as conn:
-            row = conn.execute(
-                "SELECT extversion FROM pg_extension WHERE extname = 'vector'"
+            pgvector, canonical = conn.execute(
+                "SELECT (SELECT extversion FROM pg_extension WHERE extname = 'vector'), to_regclass(%s) IS NOT NULL",
+                (CANONICAL_TABLE,),
             ).fetchone()
-        return {"status": "UP", "pgvector": row[0] if row else "MISSING"}
+        return {
+            "status": "UP",
+            "pgvector": pgvector or "MISSING",
+            "canonical_table": "PRESENT" if canonical else "MISSING",
+        }
     except psycopg.Error as exc:
         return {"status": "DOWN", "error": type(exc).__name__}
 
@@ -136,6 +144,8 @@ def health(response: Response) -> dict:
     stats = read_case_stats()
     reasons = []
     body = {"database": db}
+    if db.get("canonical_table") == "MISSING":
+        reasons.append(f"{CANONICAL_TABLE} does not exist yet (Phase 2 creates it); investigations wait until it does")
     if stats is not None:
         if stats.backlog >= settings.health_backlog_max:
             reasons.append(f"{stats.backlog} results waiting for Phase 5 (limit {settings.health_backlog_max})")
