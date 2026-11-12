@@ -175,12 +175,12 @@ class Worker:
 
     # ---- background loops -------------------------------------------------------------------------------
 
-    def start(self) -> None:
+    def start(self, *, deliveries: bool = True) -> None:
+        """Start the loops. deliveries=False (no Phase 5 URL yet) keeps results waiting as AWAITING_DELIVERY."""
         self._stop.clear()
-        self._threads = [
-            threading.Thread(target=self._investigation_loop, name="investigation-loop", daemon=True),
-            threading.Thread(target=self._delivery_loop, name="delivery-loop", daemon=True),
-        ]
+        self._threads = [threading.Thread(target=self._investigation_loop, name="investigation-loop", daemon=True)]
+        if deliveries:
+            self._threads.append(threading.Thread(target=self._delivery_loop, name="delivery-loop", daemon=True))
         for thread in self._threads:
             thread.start()
 

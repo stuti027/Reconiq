@@ -85,9 +85,10 @@ async def lifespan(app: FastAPI):
     if settings.worker_enabled:
         worker = build_worker(settings)
         worker.recover()
-        worker.start()
+        worker.start(deliveries=bool(settings.phase5_result_url))
         if not settings.phase5_result_url:
-            log.warning("PHASE5_RESULT_URL is not set: results will wait as AWAITING_DELIVERY")
+            log.warning("PHASE5_RESULT_URL is not set: deliveries are off; results wait as AWAITING_DELIVERY "
+                        "and are sent after it is set and the service restarts")
     app.state.worker = worker
     log.info("ai-service started (worker %s)", "on" if worker else "off")
     try:

@@ -203,6 +203,26 @@ class DeliverRoundTest(WorkerTestBase):
         self.assertEqual(w.counters.snapshot()["delivery_failures"], 1)
 
 
+class DeliveriesOffTest(WorkerTestBase):
+    def test_without_deliveries_results_wait_and_nothing_is_sent(self):
+        case_id = insert_case()
+        recorder = Recorder()
+        w = worker(deliver=recorder)
+        w.start(deliveries=False)
+        try:
+            self.assertEqual([t.name for t in w._threads], ["investigation-loop"])
+            deadline = time.time() + 5
+            while row(case_id)["status"] != AWAITING_DELIVERY and time.time() < deadline:
+                time.sleep(0.05)
+            time.sleep(0.3)
+        finally:
+            w.stop()
+        r = row(case_id)
+        self.assertEqual((r["status"], r["attempts"]), (AWAITING_DELIVERY, 0))
+        self.assertEqual(recorder.sent, [])
+        self.assertEqual(w.counters.snapshot()["delivery_failures"], 0)
+
+
 class RecoveryTest(WorkerTestBase):
     def test_startup_recovery(self):
         resumed = insert_case(status="IN_PROGRESS", pickups=1)
