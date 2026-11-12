@@ -52,7 +52,8 @@ Log lines carry `case=<case_id>`. The Gemini key and the database password are m
 
 ## Run locally
 
-From `ai-service/`, with the repository's virtual environment (Python 3.13.7, `Reconiq/.venv`):
+From `ai-service/`, with the repository's virtual environment (Python 3.13.7, `Reconiq/.venv`; create it once
+from the repository root with `py -3.13 -m venv .venv`):
 
 ```
 ..\.venv\Scripts\python.exe -m pip install -r requirements.txt
@@ -61,7 +62,8 @@ From `ai-service/`, with the repository's virtual environment (Python 3.13.7, `R
 
 The database needs Phase 2's canonical table and rows. On an empty database (e.g. a fresh pgvector container),
 `python tests/fixtures/seed_canonical.py` creates the table with Phase 2's DDL and loads the sample rows the tests
-use. The service creates its own `investigation` schema and enables pgvector at startup.
+use. The service creates its own `investigation` schema and enables pgvector at startup. Don't run the seed
+against the team stack's database: there Phase 2 creates the table itself.
 
 ## Run with Docker
 
