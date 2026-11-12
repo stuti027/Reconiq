@@ -19,8 +19,8 @@ POST /investigate ──> investigation.cases (saved before the 202 reply)   sta
                  POST result to Phase 5, retried with backoff until 2xx   DELIVERED
 ```
 
-- Postgres or Gemini down, rate-limited (429), busy (5xx) or misconfigured (bad key): the case is put back and the
-  worker waits, longer each time. These never become `FAILED`.
+- Postgres or Gemini down, rate-limited (429), busy (5xx) or misconfigured (bad key), or Phase 2's table not created
+  yet: the case is put back and the worker waits, longer each time. These never become `FAILED`.
 - Model output invalid twice, model refused, or an unexpected error in our code: `FAILED` with a reason code
   (`LLM_OUTPUT_INVALID`, `LLM_REFUSED`, `PROCESSING_ERROR`).
 - A case picked up 3 times without finishing (it crashed the service each time): `FAILED POISON_CASE`.
@@ -38,7 +38,7 @@ any is missing or invalid, the service lists every problem and does not start.
 | `GEMINI_API_KEY` | yes | | Your key from aistudio.google.com |
 | `GEMINI_MODEL` | yes | | e.g. `gemini-3.8-flash` |
 | `GEMINI_EMBEDDING_MODEL` | yes | | `gemini-embedding-2` (768 dimensions) |
-| `PHASE5_RESULT_URL` | no | empty | Phase 5's results endpoint. Empty: results wait as `AWAITING_DELIVERY` |
+| `PHASE5_RESULT_URL` | no | empty | Phase 5's results endpoint. Empty: deliveries are off and results wait as `AWAITING_DELIVERY` until it is set and the service restarts |
 | `WORKER_ENABLED` | no | `true` | `false` runs only the HTTP endpoints (no investigations) |
 | `MAX_CONCURRENT_INVESTIGATIONS` | no | `2` | Cases investigated at once (also limits Gemini traffic) |
 | `MAX_PICKUPS` | no | `3` | Pickups without finishing before `POISON_CASE` |
@@ -92,7 +92,7 @@ different Linux base than `postgres:16-alpine`, and text indexes on the old volu
 | Endpoint | What it returns |
 |---|---|
 | `POST /investigate` | `202 {"status": "accepted"}` once the case is saved; `202 already_received` for an identical resend; `409 CASE_ID_CONFLICT` for the same `case_id` with different content; `422` for an invalid body |
-| `GET /health` | `200 UP`, `200 DEGRADED` (with `reasons`: results piling up, oldest too old, or `FAILED` spiking), or `503 DOWN` (Postgres unreachable or pgvector missing) |
+| `GET /health` | `200 UP`, `200 DEGRADED` (with `reasons`: Phase 2's table missing, results piling up, oldest too old, or `FAILED` spiking), or `503 DOWN` (Postgres unreachable or pgvector missing) |
 | `GET /metrics` | Cases by stage, results by status, `FAILED` by reason, deliveries pending, Gemini reasoning calls, average passes per case, and the worker's counts since start |
 
 Request body: `{"case_id": "...", "source_phase": "PHASE_3" | "PHASE_6", "transaction_ids": ["..."], "context": {}}`.
