@@ -7,6 +7,39 @@ case to Phase 5: `RESOLVED`, `LOW_CONFIDENCE` or `FAILED`. It explains *why*; Ph
 
 **Nothing is prebuilt.** Every command below builds or installs from this folder.
 
+## Quick start
+
+You need Docker and a Gemini API key (free from aistudio.google.com). Run everything from the repository root.
+
+1. Create the settings file and put your key in it (`GEMINI_API_KEY=...`). The `POSTGRES_*` lines can stay as they
+   are: with the team stack they're replaced by the team database's values.
+   ```
+   cp ai-service/.env.example ai-service/.env
+   ```
+   (PowerShell: `Copy-Item ai-service\.env.example ai-service\.env`)
+2. Start the team stack with ai-service added. If Postgres has run before on the plain `postgres:16-alpine` image,
+   start it on a fresh volume first (see [Run with the team stack](#run-with-the-team-stack)).
+   ```
+   docker compose -f docker-compose.yml -f ai-service/docker-compose.ai-service.yml up -d --build
+   ```
+3. Check it's running: `curl http://localhost:8000/health`. Expect `"status":"UP"`, or `DEGRADED` with the reason
+   "normalization.canonical_transactions does not exist yet" until Phase 2 has run once.
+4. Send a case, using `transaction_id`s that exist in Phase 2's table (e.g. the two ids Phase 3 prints as `UNMATCHED`).
+   Expect `{"case_id":"demo-001","status":"accepted"}`.
+   ```
+   curl -X POST http://localhost:8000/investigate -H "Content-Type: application/json" -d '{"case_id":"demo-001","source_phase":"PHASE_3","transaction_ids":["TXN00011"]}'
+   ```
+   (PowerShell: `Invoke-RestMethod -Method Post -Uri http://localhost:8000/investigate -ContentType 'application/json' -Body '{"case_id":"demo-001","source_phase":"PHASE_3","transaction_ids":["TXN00011"]}'`)
+5. Watch it work: `docker logs -f reconiq-ai-service` shows `case=demo-001` lines ending in `result stored: RESOLVED`
+   (or `LOW_CONFIDENCE`). The result is on the case's row:
+   ```
+   docker exec reconiq-postgres psql -U reconiq_user -d reconiq_db -c "SELECT case_id, status, result->>'status', result->>'root_cause' FROM investigation.cases;"
+   ```
+   It is sent to Phase 5 only if `PHASE5_RESULT_URL` is set in `ai-service/.env`. Gemini's free tier sometimes
+   answers "busy" (503): the case then waits and retries by itself.
+
+Stop with `docker compose -f docker-compose.yml -f ai-service/docker-compose.ai-service.yml down`.
+
 ## How a case flows
 
 ```
