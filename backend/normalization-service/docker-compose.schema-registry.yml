@@ -1,0 +1,23 @@
+# Override: adds a Schema Registry to the TEAM stack (../../docker-compose.yml) so this service
+# can run its Avro serde against the shared Kafka broker, without editing the shared compose file.
+#
+# Usage (from the repository root):
+#   docker compose -f docker-compose.yml -f backend/normalization-service/docker-compose.schema-registry.yml up -d
+#
+# This does not replace the private sandbox (../../phase2-sandbox/docker-compose.yml) used for
+# day-to-day development -- use this only when integrating against the team's shared stack.
+
+services:
+  schema-registry:
+    image: confluentinc/cp-schema-registry:7.6.1
+    container_name: reconiq-schema-registry
+    depends_on:
+      - kafka
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:29092
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+    networks:
+      - reconiq-net

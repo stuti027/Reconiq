@@ -1,0 +1,4342 @@
+{
+  "dataset": {
+    "name": "ReconIQ Sample Transaction Events",
+    "version": "1.0",
+    "description": "Synthetic development data using a production-style transaction event structure. No test-case labels are included in the input events.",
+    "schema": "reconiq.transaction.v1",
+    "generated_at": "2026-08-25T14:52:00Z"
+  },
+  "events": [
+    {
+      "event_id": "evt_anom_small_001",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-23T09:01:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-ANOM-SMALL-001",
+          "reference_id": "REF-ANOM-SMALL-001",
+          "amount": {
+            "value": 999.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-23T09:01:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER009",
+          "customer_id": "CUST2001",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-ANOM-SMALL-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00006",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T09:48:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00006",
+          "reference_id": "REF00006",
+          "amount": {
+            "value": 1051.32,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T09:48:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER007",
+          "customer_id": "CUST0007",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00006"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00080",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T19:40:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00080",
+          "reference_id": "REF00080",
+          "amount": {
+            "value": 2174.65,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T19:40:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER001",
+          "customer_id": "CUST0021",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00080"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00010",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T10:22:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00010",
+          "reference_id": "REF00010",
+          "amount": {
+            "value": 1857.94,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T10:22:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER003",
+          "customer_id": "CUST0011",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00010"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00058",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T16:44:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00058",
+          "reference_id": "REF00058",
+          "amount": {
+            "value": 2510.92,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T16:44:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER003",
+          "customer_id": "CUST0029",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00058"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_split_001a",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-22T15:03:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "BANK-SPLIT-001-A",
+          "reference_id": "REF-SPLIT-001-A",
+          "amount": {
+            "value": 6000.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-22T15:03:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER004",
+          "customer_id": "CUST1004",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET-SPLIT-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00067",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T17:56:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00067",
+          "reference_id": "REF00067",
+          "amount": {
+            "value": 1816.77,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T17:56:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER004",
+          "customer_id": "CUST0008",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00067"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00048",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T15:24:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00048",
+          "reference_id": "REF00048",
+          "amount": {
+            "value": 2039.25,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T15:24:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER001",
+          "customer_id": "CUST0019",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00048"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_curr_001",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-23T05:00:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-CURR-001",
+          "reference_id": "REF-CURR-001",
+          "amount": {
+            "value": 100.0,
+            "currency": "USD"
+          },
+          "timestamp": "2026-08-23T05:00:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER003",
+          "customer_id": "CUST1012",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-CURR-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00012",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T10:36:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00012",
+          "reference_id": "REF00012",
+          "amount": {
+            "value": 2381.78,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T10:36:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER005",
+          "customer_id": "CUST0013",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00012"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00019",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T11:34:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00019",
+          "reference_id": "REF00019",
+          "amount": {
+            "value": 1820.83,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T11:34:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER004",
+          "customer_id": "CUST0020",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00019"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00019",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T11:32:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00019",
+          "reference_id": "REF00019",
+          "amount": {
+            "value": 1820.83,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T11:32:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER004",
+          "customer_id": "CUST0020",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00019"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00076",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T19:08:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00076",
+          "reference_id": "REF00076",
+          "amount": {
+            "value": 1384.21,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T19:08:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER005",
+          "customer_id": "CUST0017",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00076"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_fuzzy_001",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-22T13:00:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-FUZZY-001",
+          "reference_id": "PAY-20260822-77881",
+          "amount": {
+            "value": 3200.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-22T13:00:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER003",
+          "customer_id": "CUST1003",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-FUZZY-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00068",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T18:04:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00068",
+          "reference_id": "REF00068",
+          "amount": {
+            "value": 1926.62,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T18:04:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER005",
+          "customer_id": "CUST0009",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00068"
+        }
+      }
+    },
+    {
+      "event_id": "evt_anom_small_005",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-23T09:05:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-ANOM-SMALL-005",
+          "reference_id": "REF-ANOM-SMALL-005",
+          "amount": {
+            "value": 999.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-23T09:05:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER009",
+          "customer_id": "CUST2005",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-ANOM-SMALL-005"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00010",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T10:20:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00010",
+          "reference_id": "REF00010",
+          "amount": {
+            "value": 1857.94,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T10:20:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER003",
+          "customer_id": "CUST0011",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00010"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00064",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T17:34:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00064",
+          "reference_id": "REF00064",
+          "amount": {
+            "value": 1533.96,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T17:34:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER001",
+          "customer_id": "CUST0005",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00064"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00075",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T19:00:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00075",
+          "reference_id": "REF00075",
+          "amount": {
+            "value": 1519.1,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T19:00:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER004",
+          "customer_id": "CUST0016",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00075"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00069",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T18:12:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00069",
+          "reference_id": "REF00069",
+          "amount": {
+            "value": 1642.2,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T18:12:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER006",
+          "customer_id": "CUST0010",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00069"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00001",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T09:10:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00001",
+          "reference_id": "REF00001",
+          "amount": {
+            "value": 1727.95,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T09:10:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER002",
+          "customer_id": "CUST0002",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_dup_002",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-22T21:02:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-DUP-001-2",
+          "reference_id": "REF-DUP-001",
+          "amount": {
+            "value": 1850.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-22T21:02:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER007",
+          "customer_id": "CUST1007",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-DUP-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_split_001b",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-22T15:04:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "BANK-SPLIT-001-B",
+          "reference_id": "REF-SPLIT-001-B",
+          "amount": {
+            "value": 4000.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-22T15:04:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER004",
+          "customer_id": "CUST1004",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET-SPLIT-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00057",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T16:36:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00057",
+          "reference_id": "REF00057",
+          "amount": {
+            "value": 2184.24,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T16:36:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER002",
+          "customer_id": "CUST0028",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00057"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00020",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T11:40:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00020",
+          "reference_id": "REF00020",
+          "amount": {
+            "value": 1746.84,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T11:40:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER005",
+          "customer_id": "CUST0021",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00020"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00007",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T09:58:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00007",
+          "reference_id": "REF00007",
+          "amount": {
+            "value": 1966.16,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T09:58:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER008",
+          "customer_id": "CUST0008",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00007"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00036",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T13:50:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00036",
+          "reference_id": "REF00036",
+          "amount": {
+            "value": 2238.01,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T13:50:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER005",
+          "customer_id": "CUST0007",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00036"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_time_001",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-22T11:00:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-TIME-001",
+          "reference_id": "REF-TIME-001",
+          "amount": {
+            "value": 2750.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-22T11:00:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER002",
+          "customer_id": "CUST1002",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-TIME-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00054",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T16:12:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00054",
+          "reference_id": "REF00054",
+          "amount": {
+            "value": 2967.88,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T16:12:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER007",
+          "customer_id": "CUST0025",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00054"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_time_001",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-22T14:00:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "BANK-TIME-001",
+          "reference_id": "REF-TIME-001",
+          "amount": {
+            "value": 2750.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-22T14:00:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER002",
+          "customer_id": "CUST1002",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET-TIME-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_anom_large_001",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-23T11:01:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-ANOM-LARGE-001",
+          "reference_id": "REF-ANOM-LARGE-001",
+          "amount": {
+            "value": 75000.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-23T11:01:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER010",
+          "customer_id": "CUST3001",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-ANOM-LARGE-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00003",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T09:26:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00003",
+          "reference_id": "REF00003",
+          "amount": {
+            "value": 1744.34,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T09:26:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER004",
+          "customer_id": "CUST0004",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00003"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00046",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T15:08:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00046",
+          "reference_id": "REF00046",
+          "amount": {
+            "value": 1974.94,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T15:08:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER007",
+          "customer_id": "CUST0017",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00046"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00027",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T12:38:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00027",
+          "reference_id": "REF00027",
+          "amount": {
+            "value": 1988.3,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T12:38:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER004",
+          "customer_id": "CUST0028",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00027"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00025",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T12:22:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00025",
+          "reference_id": "REF00025",
+          "amount": {
+            "value": 2236.7,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T12:22:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER002",
+          "customer_id": "CUST0026",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00025"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00040",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T14:22:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00040",
+          "reference_id": "REF00040",
+          "amount": {
+            "value": 1298.9,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T14:22:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER001",
+          "customer_id": "CUST0011",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00040"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00023",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T12:04:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00023",
+          "reference_id": "REF00023",
+          "amount": {
+            "value": 1643.86,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T12:04:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER008",
+          "customer_id": "CUST0024",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00023"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_curr_001",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-23T05:02:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "BANK-CURR-001",
+          "reference_id": "REF-CURR-001",
+          "amount": {
+            "value": 100.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-23T05:02:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER003",
+          "customer_id": "CUST1012",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET-CURR-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00025",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T12:20:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00025",
+          "reference_id": "REF00025",
+          "amount": {
+            "value": 2236.7,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T12:20:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER002",
+          "customer_id": "CUST0026",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00025"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00067",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T17:58:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00067",
+          "reference_id": "REF00067",
+          "amount": {
+            "value": 1816.77,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T17:58:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER004",
+          "customer_id": "CUST0008",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00067"
+        }
+      }
+    },
+    {
+      "event_id": "evt_anom_small_006",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-23T09:06:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-ANOM-SMALL-006",
+          "reference_id": "REF-ANOM-SMALL-006",
+          "amount": {
+            "value": 999.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-23T09:06:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER009",
+          "customer_id": "CUST2006",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-ANOM-SMALL-006"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00006",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T09:50:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00006",
+          "reference_id": "REF00006",
+          "amount": {
+            "value": 1051.32,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T09:50:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER007",
+          "customer_id": "CUST0007",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00006"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00060",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T17:00:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00060",
+          "reference_id": "REF00060",
+          "amount": {
+            "value": 2217.91,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T17:00:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER005",
+          "customer_id": "CUST0001",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00060"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00054",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T16:14:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00054",
+          "reference_id": "REF00054",
+          "amount": {
+            "value": 2967.88,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T16:14:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER007",
+          "customer_id": "CUST0025",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00054"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00056",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T16:28:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00056",
+          "reference_id": "REF00056",
+          "amount": {
+            "value": 1250.56,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T16:28:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER001",
+          "customer_id": "CUST0027",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00056"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00018",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T11:24:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00018",
+          "reference_id": "REF00018",
+          "amount": {
+            "value": 2455.54,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T11:24:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER003",
+          "customer_id": "CUST0019",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00018"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00053",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T16:06:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00053",
+          "reference_id": "REF00053",
+          "amount": {
+            "value": 1674.94,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T16:06:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER006",
+          "customer_id": "CUST0024",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00053"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00052",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T15:58:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00052",
+          "reference_id": "REF00052",
+          "amount": {
+            "value": 2049.66,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T15:58:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER005",
+          "customer_id": "CUST0023",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00052"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00051",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T15:50:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00051",
+          "reference_id": "REF00051",
+          "amount": {
+            "value": 1565.02,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T15:50:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER004",
+          "customer_id": "CUST0022",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00051"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00032",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T13:18:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00032",
+          "reference_id": "REF00032",
+          "amount": {
+            "value": 1042.74,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T13:18:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER001",
+          "customer_id": "CUST0003",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00032"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00062",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T17:16:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00062",
+          "reference_id": "REF00062",
+          "amount": {
+            "value": 1752.99,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T17:16:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER007",
+          "customer_id": "CUST0003",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00062"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00030",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T13:02:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00030",
+          "reference_id": "REF00030",
+          "amount": {
+            "value": 1243.39,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T13:02:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER007",
+          "customer_id": "CUST0001",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00030"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_comb_002",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-22T17:02:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-COMB-002",
+          "reference_id": "REF-COMB-002",
+          "amount": {
+            "value": 2500.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-22T17:02:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER005",
+          "customer_id": "CUST1002",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-COMB-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00030",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T13:00:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00030",
+          "reference_id": "REF00030",
+          "amount": {
+            "value": 1243.39,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T13:00:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER007",
+          "customer_id": "CUST0001",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00030"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00004",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T09:32:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00004",
+          "reference_id": "REF00004",
+          "amount": {
+            "value": 2150.99,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T09:32:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER005",
+          "customer_id": "CUST0005",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00004"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00053",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T16:04:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00053",
+          "reference_id": "REF00053",
+          "amount": {
+            "value": 1674.94,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T16:04:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER006",
+          "customer_id": "CUST0024",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00053"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00073",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T18:46:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00073",
+          "reference_id": "REF00073",
+          "amount": {
+            "value": 2109.98,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T18:46:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER002",
+          "customer_id": "CUST0014",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00073"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_comb_001",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-22T17:10:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "BANK-COMB-001",
+          "reference_id": "SET-COMB-001",
+          "amount": {
+            "value": 7000.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-22T17:10:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER005",
+          "customer_id": "CUST1001",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET-COMB-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00002",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T09:18:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00002",
+          "reference_id": "REF00002",
+          "amount": {
+            "value": 1713.55,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T09:18:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER003",
+          "customer_id": "CUST0003",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00002"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00024",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T12:12:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00024",
+          "reference_id": "REF00024",
+          "amount": {
+            "value": 2045.18,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T12:12:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER001",
+          "customer_id": "CUST0025",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00024"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00041",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T14:30:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00041",
+          "reference_id": "REF00041",
+          "amount": {
+            "value": 1756.88,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T14:30:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER002",
+          "customer_id": "CUST0012",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00041"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00044",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T14:52:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00044",
+          "reference_id": "REF00044",
+          "amount": {
+            "value": 2209.32,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T14:52:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER005",
+          "customer_id": "CUST0015",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00044"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00014",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T10:52:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00014",
+          "reference_id": "REF00014",
+          "amount": {
+            "value": 1855.25,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T10:52:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER007",
+          "customer_id": "CUST0015",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00014"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00059",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T16:54:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00059",
+          "reference_id": "REF00059",
+          "amount": {
+            "value": 2052.85,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T16:54:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER004",
+          "customer_id": "CUST0030",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00059"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00077",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T19:18:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00077",
+          "reference_id": "REF00077",
+          "amount": {
+            "value": 2276.14,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T19:18:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER006",
+          "customer_id": "CUST0018",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00077"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00028",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T12:46:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00028",
+          "reference_id": "REF00028",
+          "amount": {
+            "value": 1924.11,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T12:46:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER005",
+          "customer_id": "CUST0029",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00028"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00061",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T17:08:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00061",
+          "reference_id": "REF00061",
+          "amount": {
+            "value": 2513.17,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T17:08:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER006",
+          "customer_id": "CUST0002",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00061"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_status_001",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-23T03:03:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "BANK-STATUS-001",
+          "reference_id": "REF-STATUS-001",
+          "amount": {
+            "value": 1600.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-23T03:03:00Z",
+          "status": "FAILED",
+          "merchant_id": "MER002",
+          "customer_id": "CUST1011",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET-STATUS-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00013",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T10:44:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00013",
+          "reference_id": "REF00013",
+          "amount": {
+            "value": 2128.32,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T10:44:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER006",
+          "customer_id": "CUST0014",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00013"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00027",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T12:36:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00027",
+          "reference_id": "REF00027",
+          "amount": {
+            "value": 1988.3,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T12:36:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER004",
+          "customer_id": "CUST0028",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00027"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00037",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T13:56:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00037",
+          "reference_id": "REF00037",
+          "amount": {
+            "value": 2132.13,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T13:56:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER006",
+          "customer_id": "CUST0008",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00037"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00051",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T15:48:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00051",
+          "reference_id": "REF00051",
+          "amount": {
+            "value": 1565.02,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T15:48:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER004",
+          "customer_id": "CUST0022",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00051"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00071",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T18:28:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00071",
+          "reference_id": "REF00071",
+          "amount": {
+            "value": 2090.39,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T18:28:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER008",
+          "customer_id": "CUST0012",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00071"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00038",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T14:04:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00038",
+          "reference_id": "REF00038",
+          "amount": {
+            "value": 1190.46,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T14:04:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER007",
+          "customer_id": "CUST0009",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00038"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00037",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T13:58:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00037",
+          "reference_id": "REF00037",
+          "amount": {
+            "value": 2132.13,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T13:58:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER006",
+          "customer_id": "CUST0008",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00037"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_dup_001",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-22T21:03:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "BANK-DUP-001",
+          "reference_id": "REF-DUP-001",
+          "amount": {
+            "value": 1850.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-22T21:03:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER007",
+          "customer_id": "CUST1007",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET-DUP-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00058",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T16:46:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00058",
+          "reference_id": "REF00058",
+          "amount": {
+            "value": 2510.92,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T16:46:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER003",
+          "customer_id": "CUST0029",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00058"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00079",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T19:34:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00079",
+          "reference_id": "REF00079",
+          "amount": {
+            "value": 1764.87,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T19:34:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER008",
+          "customer_id": "CUST0020",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00079"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00032",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T13:16:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00032",
+          "reference_id": "REF00032",
+          "amount": {
+            "value": 1042.74,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T13:16:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER001",
+          "customer_id": "CUST0003",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00032"
+        }
+      }
+    },
+    {
+      "event_id": "evt_anom_small_002",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-23T09:02:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-ANOM-SMALL-002",
+          "reference_id": "REF-ANOM-SMALL-002",
+          "amount": {
+            "value": 999.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-23T09:02:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER009",
+          "customer_id": "CUST2002",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-ANOM-SMALL-002"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00016",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T11:08:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00016",
+          "reference_id": "REF00016",
+          "amount": {
+            "value": 1292.67,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T11:08:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER001",
+          "customer_id": "CUST0017",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00016"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00033",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T13:26:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00033",
+          "reference_id": "REF00033",
+          "amount": {
+            "value": 490.03,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T13:26:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER002",
+          "customer_id": "CUST0004",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00033"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00045",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T15:02:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00045",
+          "reference_id": "REF00045",
+          "amount": {
+            "value": 2119.21,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T15:02:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER006",
+          "customer_id": "CUST0016",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00045"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00022",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T11:56:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00022",
+          "reference_id": "REF00022",
+          "amount": {
+            "value": 1073.23,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T11:56:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER007",
+          "customer_id": "CUST0023",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00022"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00070",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T18:22:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00070",
+          "reference_id": "REF00070",
+          "amount": {
+            "value": 2161.82,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T18:22:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER007",
+          "customer_id": "CUST0011",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00070"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_fee_001",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-22T19:00:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-FEE-001",
+          "reference_id": "REF-FEE-001",
+          "amount": {
+            "value": 5000.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-22T19:00:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER006",
+          "customer_id": "CUST1006",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-FEE-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00057",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T16:38:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00057",
+          "reference_id": "REF00057",
+          "amount": {
+            "value": 2184.24,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T16:38:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER002",
+          "customer_id": "CUST0028",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00057"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00004",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T09:34:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00004",
+          "reference_id": "REF00004",
+          "amount": {
+            "value": 2150.99,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T09:34:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER005",
+          "customer_id": "CUST0005",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00004"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00041",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T14:28:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00041",
+          "reference_id": "REF00041",
+          "amount": {
+            "value": 1756.88,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T14:28:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER002",
+          "customer_id": "CUST0012",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00041"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00005",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T09:42:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00005",
+          "reference_id": "REF00005",
+          "amount": {
+            "value": 1736.21,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T09:42:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER006",
+          "customer_id": "CUST0006",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00005"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00072",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T18:36:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00072",
+          "reference_id": "REF00072",
+          "amount": {
+            "value": 2960.7,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T18:36:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER001",
+          "customer_id": "CUST0013",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00072"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00050",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T15:42:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00050",
+          "reference_id": "REF00050",
+          "amount": {
+            "value": 1441.31,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T15:42:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER003",
+          "customer_id": "CUST0021",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00050"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00074",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T18:52:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00074",
+          "reference_id": "REF00074",
+          "amount": {
+            "value": 1495.3,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T18:52:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER003",
+          "customer_id": "CUST0015",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00074"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_fuzzy_001",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-22T13:04:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "BANK-FUZZY-001",
+          "reference_id": "PAY2026082277881",
+          "amount": {
+            "value": 3200.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-22T13:04:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER003",
+          "customer_id": "CUST1003",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET-FUZZY-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00062",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T17:18:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00062",
+          "reference_id": "REF00062",
+          "amount": {
+            "value": 1752.99,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T17:18:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER007",
+          "customer_id": "CUST0003",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00062"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_miss_001",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-22T23:02:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-MISS-001",
+          "reference_id": "REF-MISS-001",
+          "amount": {
+            "value": 2200.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-22T23:02:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER008",
+          "customer_id": "CUST1008",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-MISS-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_split_001",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-22T15:00:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-SPLIT-001",
+          "reference_id": "REF-SPLIT-001",
+          "amount": {
+            "value": 10000.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-22T15:00:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER004",
+          "customer_id": "CUST1004",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-SPLIT-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00022",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T11:58:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00022",
+          "reference_id": "REF00022",
+          "amount": {
+            "value": 1073.23,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T11:58:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER007",
+          "customer_id": "CUST0023",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00022"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00005",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T09:40:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00005",
+          "reference_id": "REF00005",
+          "amount": {
+            "value": 1736.21,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T09:40:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER006",
+          "customer_id": "CUST0006",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00005"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00073",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T18:44:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00073",
+          "reference_id": "REF00073",
+          "amount": {
+            "value": 2109.98,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T18:44:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER002",
+          "customer_id": "CUST0014",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00073"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00016",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T11:10:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00016",
+          "reference_id": "REF00016",
+          "amount": {
+            "value": 1292.67,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T11:10:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER001",
+          "customer_id": "CUST0017",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00016"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00008",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T10:06:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00008",
+          "reference_id": "REF00008",
+          "amount": {
+            "value": 1666.33,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T10:06:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER001",
+          "customer_id": "CUST0009",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00008"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00029",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T12:54:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00029",
+          "reference_id": "REF00029",
+          "amount": {
+            "value": 2191.16,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T12:54:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER006",
+          "customer_id": "CUST0030",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00029"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00034",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T13:32:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00034",
+          "reference_id": "REF00034",
+          "amount": {
+            "value": 1496.55,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T13:32:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER003",
+          "customer_id": "CUST0005",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00034"
+        }
+      }
+    },
+    {
+      "event_id": "evt_anom_small_003",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-23T09:03:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-ANOM-SMALL-003",
+          "reference_id": "REF-ANOM-SMALL-003",
+          "amount": {
+            "value": 999.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-23T09:03:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER009",
+          "customer_id": "CUST2003",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-ANOM-SMALL-003"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00024",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T12:14:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00024",
+          "reference_id": "REF00024",
+          "amount": {
+            "value": 2045.18,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T12:14:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER001",
+          "customer_id": "CUST0025",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00024"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00042",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T14:38:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00042",
+          "reference_id": "REF00042",
+          "amount": {
+            "value": 1653.05,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T14:38:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER003",
+          "customer_id": "CUST0013",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00042"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00043",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T14:46:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00043",
+          "reference_id": "REF00043",
+          "amount": {
+            "value": 1857.21,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T14:46:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER004",
+          "customer_id": "CUST0014",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00043"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00026",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T12:30:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00026",
+          "reference_id": "REF00026",
+          "amount": {
+            "value": 1679.69,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T12:30:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER003",
+          "customer_id": "CUST0027",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00026"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00074",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T18:54:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00074",
+          "reference_id": "REF00074",
+          "amount": {
+            "value": 1495.3,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T18:54:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER003",
+          "customer_id": "CUST0015",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00074"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00046",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T15:10:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00046",
+          "reference_id": "REF00046",
+          "amount": {
+            "value": 1974.94,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T15:10:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER007",
+          "customer_id": "CUST0017",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00046"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00013",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T10:46:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00013",
+          "reference_id": "REF00013",
+          "amount": {
+            "value": 2128.32,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T10:46:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER006",
+          "customer_id": "CUST0014",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00013"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00045",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T15:00:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00045",
+          "reference_id": "REF00045",
+          "amount": {
+            "value": 2119.21,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T15:00:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER006",
+          "customer_id": "CUST0016",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00045"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00047",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T15:18:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00047",
+          "reference_id": "REF00047",
+          "amount": {
+            "value": 2124.97,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T15:18:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER008",
+          "customer_id": "CUST0018",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00047"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00049",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T15:32:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00049",
+          "reference_id": "REF00049",
+          "amount": {
+            "value": 1486.51,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T15:32:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER002",
+          "customer_id": "CUST0020",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00049"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00035",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T13:42:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00035",
+          "reference_id": "REF00035",
+          "amount": {
+            "value": 1342.09,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T13:42:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER004",
+          "customer_id": "CUST0006",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00035"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00076",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T19:10:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00076",
+          "reference_id": "REF00076",
+          "amount": {
+            "value": 1384.21,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T19:10:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER005",
+          "customer_id": "CUST0017",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00076"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00028",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T12:44:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00028",
+          "reference_id": "REF00028",
+          "amount": {
+            "value": 1924.11,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T12:44:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER005",
+          "customer_id": "CUST0029",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00028"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00039",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T14:14:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00039",
+          "reference_id": "REF00039",
+          "amount": {
+            "value": 2223.68,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T14:14:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER008",
+          "customer_id": "CUST0010",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00039"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00080",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T19:42:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00080",
+          "reference_id": "REF00080",
+          "amount": {
+            "value": 2174.65,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T19:42:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER001",
+          "customer_id": "CUST0021",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00080"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00078",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T19:26:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00078",
+          "reference_id": "REF00078",
+          "amount": {
+            "value": 1516.58,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T19:26:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER007",
+          "customer_id": "CUST0019",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00078"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00017",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T11:18:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00017",
+          "reference_id": "REF00017",
+          "amount": {
+            "value": 1923.17,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T11:18:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER002",
+          "customer_id": "CUST0018",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00017"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00066",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T17:50:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00066",
+          "reference_id": "REF00066",
+          "amount": {
+            "value": 1078.16,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T17:50:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER003",
+          "customer_id": "CUST0007",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00066"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00036",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T13:48:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00036",
+          "reference_id": "REF00036",
+          "amount": {
+            "value": 2238.01,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T13:48:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER005",
+          "customer_id": "CUST0007",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00036"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00061",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T17:10:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00061",
+          "reference_id": "REF00061",
+          "amount": {
+            "value": 2513.17,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T17:10:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER006",
+          "customer_id": "CUST0002",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00061"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00031",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T13:08:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00031",
+          "reference_id": "REF00031",
+          "amount": {
+            "value": 2084.13,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T13:08:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER008",
+          "customer_id": "CUST0002",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00031"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00043",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T14:44:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00043",
+          "reference_id": "REF00043",
+          "amount": {
+            "value": 1857.21,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T14:44:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER004",
+          "customer_id": "CUST0014",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00043"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00078",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T19:24:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00078",
+          "reference_id": "REF00078",
+          "amount": {
+            "value": 1516.58,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T19:24:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER007",
+          "customer_id": "CUST0019",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00078"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00017",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T11:16:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00017",
+          "reference_id": "REF00017",
+          "amount": {
+            "value": 1923.17,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T11:16:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER002",
+          "customer_id": "CUST0018",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00017"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00009",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T10:14:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00009",
+          "reference_id": "REF00009",
+          "amount": {
+            "value": 1691.52,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T10:14:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER002",
+          "customer_id": "CUST0010",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00009"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00063",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T17:24:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00063",
+          "reference_id": "REF00063",
+          "amount": {
+            "value": 1088.52,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T17:24:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER008",
+          "customer_id": "CUST0004",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00063"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00011",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T10:30:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00011",
+          "reference_id": "REF00011",
+          "amount": {
+            "value": 1916.15,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T10:30:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER004",
+          "customer_id": "CUST0012",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00011"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00011",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T10:28:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00011",
+          "reference_id": "REF00011",
+          "amount": {
+            "value": 1916.15,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T10:28:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER004",
+          "customer_id": "CUST0012",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00011"
+        }
+      }
+    },
+    {
+      "event_id": "evt_anom_large_004",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-23T11:04:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-ANOM-LARGE-004",
+          "reference_id": "REF-ANOM-LARGE-004",
+          "amount": {
+            "value": 500000.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-23T11:04:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER010",
+          "customer_id": "CUST3004",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-ANOM-LARGE-004"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00008",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T10:04:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00008",
+          "reference_id": "REF00008",
+          "amount": {
+            "value": 1666.33,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T10:04:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER001",
+          "customer_id": "CUST0009",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00008"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00031",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T13:10:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00031",
+          "reference_id": "REF00031",
+          "amount": {
+            "value": 2084.13,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T13:10:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER008",
+          "customer_id": "CUST0002",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00031"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00040",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T14:20:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00040",
+          "reference_id": "REF00040",
+          "amount": {
+            "value": 1298.9,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T14:20:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER001",
+          "customer_id": "CUST0011",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00040"
+        }
+      }
+    },
+    {
+      "event_id": "evt_anom_small_004",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-23T09:04:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-ANOM-SMALL-004",
+          "reference_id": "REF-ANOM-SMALL-004",
+          "amount": {
+            "value": 999.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-23T09:04:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER009",
+          "customer_id": "CUST2004",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-ANOM-SMALL-004"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_exact_001",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-22T09:01:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "BANK-EXACT-001",
+          "reference_id": "REF-EXACT-001",
+          "amount": {
+            "value": 1500.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-22T09:01:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER001",
+          "customer_id": "CUST1001",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET-EXACT-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00003",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T09:24:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00003",
+          "reference_id": "REF00003",
+          "amount": {
+            "value": 1744.34,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T09:24:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER004",
+          "customer_id": "CUST0004",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00003"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00063",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T17:26:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00063",
+          "reference_id": "REF00063",
+          "amount": {
+            "value": 1088.52,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T17:26:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER008",
+          "customer_id": "CUST0004",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00063"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00042",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T14:36:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00042",
+          "reference_id": "REF00042",
+          "amount": {
+            "value": 1653.05,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T14:36:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER003",
+          "customer_id": "CUST0013",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00042"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00079",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T19:32:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00079",
+          "reference_id": "REF00079",
+          "amount": {
+            "value": 1764.87,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T19:32:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER008",
+          "customer_id": "CUST0020",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00079"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_comb_001",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-22T17:01:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-COMB-001",
+          "reference_id": "REF-COMB-001",
+          "amount": {
+            "value": 3000.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-22T17:01:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER005",
+          "customer_id": "CUST1001",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-COMB-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00070",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T18:20:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00070",
+          "reference_id": "REF00070",
+          "amount": {
+            "value": 2161.82,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T18:20:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER007",
+          "customer_id": "CUST0011",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00070"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00021",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T11:50:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00021",
+          "reference_id": "REF00021",
+          "amount": {
+            "value": 2065.89,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T11:50:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER006",
+          "customer_id": "CUST0022",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00021"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00048",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T15:26:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00048",
+          "reference_id": "REF00048",
+          "amount": {
+            "value": 2039.25,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T15:26:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER001",
+          "customer_id": "CUST0019",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00048"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_orphan_001",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-23T01:00:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-ORPHAN-001",
+          "reference_id": "REF-ORPHAN-001",
+          "amount": {
+            "value": 4300.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-23T01:00:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER001",
+          "customer_id": "CUST1010",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-ORPHAN-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00026",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T12:28:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00026",
+          "reference_id": "REF00026",
+          "amount": {
+            "value": 1679.69,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T12:28:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER003",
+          "customer_id": "CUST0027",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00026"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_comb_003",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-22T17:03:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-COMB-003",
+          "reference_id": "REF-COMB-003",
+          "amount": {
+            "value": 1500.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-22T17:03:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER005",
+          "customer_id": "CUST1003",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-COMB-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00039",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T14:12:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00039",
+          "reference_id": "REF00039",
+          "amount": {
+            "value": 2223.68,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T14:12:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER008",
+          "customer_id": "CUST0010",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00039"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00014",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T10:54:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00014",
+          "reference_id": "REF00014",
+          "amount": {
+            "value": 1855.25,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T10:54:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER007",
+          "customer_id": "CUST0015",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00014"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00065",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T17:42:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00065",
+          "reference_id": "REF00065",
+          "amount": {
+            "value": 2276.45,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T17:42:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER002",
+          "customer_id": "CUST0006",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00065"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00023",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T12:06:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00023",
+          "reference_id": "REF00023",
+          "amount": {
+            "value": 1643.86,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T12:06:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER008",
+          "customer_id": "CUST0024",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00023"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00065",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T17:40:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00065",
+          "reference_id": "REF00065",
+          "amount": {
+            "value": 2276.45,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T17:40:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER002",
+          "customer_id": "CUST0006",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00065"
+        }
+      }
+    },
+    {
+      "event_id": "evt_anom_large_002",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-23T11:02:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-ANOM-LARGE-002",
+          "reference_id": "REF-ANOM-LARGE-002",
+          "amount": {
+            "value": 120000.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-23T11:02:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER010",
+          "customer_id": "CUST3002",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-ANOM-LARGE-002"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00001",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T09:08:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00001",
+          "reference_id": "REF00001",
+          "amount": {
+            "value": 1727.95,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T09:08:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER002",
+          "customer_id": "CUST0002",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00059",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T16:52:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00059",
+          "reference_id": "REF00059",
+          "amount": {
+            "value": 2052.85,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T16:52:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER004",
+          "customer_id": "CUST0030",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00059"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_miss_001",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-22T23:00:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-MISS-001",
+          "reference_id": "REF-MISS-001",
+          "timestamp": "2026-08-22T23:00:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER008",
+          "customer_id": "CUST1008",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET-MISS-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00056",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T16:30:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00056",
+          "reference_id": "REF00056",
+          "amount": {
+            "value": 1250.56,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T16:30:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER001",
+          "customer_id": "CUST0027",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00056"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00038",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T14:06:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00038",
+          "reference_id": "REF00038",
+          "amount": {
+            "value": 1190.46,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T14:06:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER007",
+          "customer_id": "CUST0009",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00038"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_status_001",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-23T03:00:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-STATUS-001",
+          "reference_id": "REF-STATUS-001",
+          "amount": {
+            "value": 1600.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-23T03:00:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER002",
+          "customer_id": "CUST1011",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-STATUS-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00044",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T14:54:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00044",
+          "reference_id": "REF00044",
+          "amount": {
+            "value": 2209.32,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T14:54:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER005",
+          "customer_id": "CUST0015",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00044"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00035",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T13:40:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00035",
+          "reference_id": "REF00035",
+          "amount": {
+            "value": 1342.09,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T13:40:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER004",
+          "customer_id": "CUST0006",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00035"
+        }
+      }
+    },
+    {
+      "event_id": "evt_anom_large_003",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-23T11:03:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-ANOM-LARGE-003",
+          "reference_id": "REF-ANOM-LARGE-003",
+          "amount": {
+            "value": 250000.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-23T11:03:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER010",
+          "customer_id": "CUST3003",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-ANOM-LARGE-003"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00015",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T11:02:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00015",
+          "reference_id": "REF00015",
+          "amount": {
+            "value": 1430.84,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T11:02:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER008",
+          "customer_id": "CUST0016",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00015"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00002",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T09:16:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00002",
+          "reference_id": "REF00002",
+          "amount": {
+            "value": 1713.55,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T09:16:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER003",
+          "customer_id": "CUST0003",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00002"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00071",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T18:30:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00071",
+          "reference_id": "REF00071",
+          "amount": {
+            "value": 2090.39,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T18:30:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER008",
+          "customer_id": "CUST0012",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00071"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00033",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T13:24:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00033",
+          "reference_id": "REF00033",
+          "amount": {
+            "value": 490.03,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T13:24:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER002",
+          "customer_id": "CUST0004",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00033"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00068",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T18:06:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00068",
+          "reference_id": "REF00068",
+          "amount": {
+            "value": 1926.62,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T18:06:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER005",
+          "customer_id": "CUST0009",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00068"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00060",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T17:02:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00060",
+          "reference_id": "REF00060",
+          "amount": {
+            "value": 2217.91,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T17:02:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER005",
+          "customer_id": "CUST0001",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00060"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_dup_001",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-22T21:01:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-DUP-001-1",
+          "reference_id": "REF-DUP-001",
+          "amount": {
+            "value": 1850.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-22T21:01:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER007",
+          "customer_id": "CUST1007",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-DUP-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00049",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T15:34:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00049",
+          "reference_id": "REF00049",
+          "amount": {
+            "value": 1486.51,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T15:34:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER002",
+          "customer_id": "CUST0020",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00049"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00050",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T15:40:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00050",
+          "reference_id": "REF00050",
+          "amount": {
+            "value": 1441.31,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T15:40:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER003",
+          "customer_id": "CUST0021",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00050"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00009",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T10:12:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00009",
+          "reference_id": "REF00009",
+          "amount": {
+            "value": 1691.52,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T10:12:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER002",
+          "customer_id": "CUST0010",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00009"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00077",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T19:16:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00077",
+          "reference_id": "REF00077",
+          "amount": {
+            "value": 2276.14,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T19:16:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER006",
+          "customer_id": "CUST0018",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00077"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00055",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T16:20:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00055",
+          "reference_id": "REF00055",
+          "amount": {
+            "value": 1390.35,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T16:20:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER008",
+          "customer_id": "CUST0026",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00055"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_fee_001",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-22T19:05:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "BANK-FEE-001",
+          "reference_id": "REF-FEE-001",
+          "amount": {
+            "value": 4925.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-22T19:05:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER006",
+          "customer_id": "CUST1006",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET-FEE-001",
+          "description": "Settlement after fee deduction"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00021",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T11:48:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00021",
+          "reference_id": "REF00021",
+          "amount": {
+            "value": 2065.89,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T11:48:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER006",
+          "customer_id": "CUST0022",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00021"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_exact_001",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-22T09:00:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-EXACT-001",
+          "reference_id": "REF-EXACT-001",
+          "amount": {
+            "value": 1500.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-22T09:00:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER001",
+          "customer_id": "CUST1001",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-EXACT-001"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00020",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T11:42:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00020",
+          "reference_id": "REF00020",
+          "amount": {
+            "value": 1746.84,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T11:42:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER005",
+          "customer_id": "CUST0021",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00020"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00015",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T11:00:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00015",
+          "reference_id": "REF00015",
+          "amount": {
+            "value": 1430.84,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T11:00:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER008",
+          "customer_id": "CUST0016",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00015"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00007",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T09:56:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00007",
+          "reference_id": "REF00007",
+          "amount": {
+            "value": 1966.16,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T09:56:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER008",
+          "customer_id": "CUST0008",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00007"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00012",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T10:38:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00012",
+          "reference_id": "REF00012",
+          "amount": {
+            "value": 2381.78,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T10:38:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER005",
+          "customer_id": "CUST0013",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00012"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00064",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T17:32:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00064",
+          "reference_id": "REF00064",
+          "amount": {
+            "value": 1533.96,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T17:32:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER001",
+          "customer_id": "CUST0005",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00064"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00066",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T17:48:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00066",
+          "reference_id": "REF00066",
+          "amount": {
+            "value": 1078.16,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T17:48:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER003",
+          "customer_id": "CUST0007",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00066"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00018",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T11:26:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00018",
+          "reference_id": "REF00018",
+          "amount": {
+            "value": 2455.54,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T11:26:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER003",
+          "customer_id": "CUST0019",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00018"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00029",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T12:52:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00029",
+          "reference_id": "REF00029",
+          "amount": {
+            "value": 2191.16,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T12:52:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER006",
+          "customer_id": "CUST0030",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00029"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00047",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T15:16:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00047",
+          "reference_id": "REF00047",
+          "amount": {
+            "value": 2124.97,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T15:16:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER008",
+          "customer_id": "CUST0018",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00047"
+        }
+      }
+    },
+    {
+      "event_id": "evt_gw_00052",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-20T15:56:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00052",
+          "reference_id": "REF00052",
+          "amount": {
+            "value": 2049.66,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T15:56:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER005",
+          "customer_id": "CUST0023",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET00052"
+        }
+      }
+    },
+    {
+      "event_id": "evt_anom_small_008",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-23T09:08:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-ANOM-SMALL-008",
+          "reference_id": "REF-ANOM-SMALL-008",
+          "amount": {
+            "value": 999.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-23T09:08:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER009",
+          "customer_id": "CUST2008",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-ANOM-SMALL-008"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00055",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T16:22:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00055",
+          "reference_id": "REF00055",
+          "amount": {
+            "value": 1390.35,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T16:22:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER008",
+          "customer_id": "CUST0026",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00055"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00075",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T19:02:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00075",
+          "reference_id": "REF00075",
+          "amount": {
+            "value": 1519.1,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T19:02:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER004",
+          "customer_id": "CUST0016",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00075"
+        }
+      }
+    },
+    {
+      "event_id": "evt_anom_small_007",
+      "event_type": "transaction.created",
+      "source": "PAYMENT_GATEWAY",
+      "event_timestamp": "2026-08-23T09:07:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN-ANOM-SMALL-007",
+          "reference_id": "REF-ANOM-SMALL-007",
+          "amount": {
+            "value": 999.0,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-23T09:07:00Z",
+          "status": "SUCCESS",
+          "merchant_id": "MER009",
+          "customer_id": "CUST2007",
+          "transaction_type": "PAYMENT",
+          "settlement_id": "SET-ANOM-SMALL-007"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00034",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T13:34:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00034",
+          "reference_id": "REF00034",
+          "amount": {
+            "value": 1496.55,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T13:34:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER003",
+          "customer_id": "CUST0005",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00034"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00069",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T18:14:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00069",
+          "reference_id": "REF00069",
+          "amount": {
+            "value": 1642.2,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T18:14:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER006",
+          "customer_id": "CUST0010",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00069"
+        }
+      }
+    },
+    {
+      "event_id": "evt_bank_00072",
+      "event_type": "settlement.posted",
+      "source": "BANK",
+      "event_timestamp": "2026-08-20T18:38:00Z",
+      "data": {
+        "transaction": {
+          "transaction_id": "TXN00072",
+          "reference_id": "REF00072",
+          "amount": {
+            "value": 2960.7,
+            "currency": "INR"
+          },
+          "timestamp": "2026-08-20T18:38:00Z",
+          "status": "SETTLED",
+          "merchant_id": "MER001",
+          "customer_id": "CUST0013",
+          "transaction_type": "SETTLEMENT",
+          "settlement_id": "SET00072"
+        }
+      }
+    }
+  ]
+}

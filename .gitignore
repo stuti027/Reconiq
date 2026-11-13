@@ -13,6 +13,7 @@ target/
 
 # Maven
 .mvn/timing.properties
+dependency-reduced-pom.xml
 
 # Python
 __pycache__/

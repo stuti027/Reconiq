@@ -1,0 +1,24 @@
+{
+  "type": "record",
+  "name": "CanonicalTransaction",
+  "namespace": "com.reconiq.canonical",
+  "doc": "One normalized transaction event. One record per raw event received from ingestion.",
+  "fields": [
+    {"name": "event_id", "type": "string", "doc": "Unique id of the raw event. Primary key downstream."},
+    {"name": "transaction_id", "type": "string", "doc": "Business transaction id. Not unique: a gateway and a bank event can share it."},
+    {"name": "source", "type": "string", "doc": "Origin system, upper-case (for example BANK, PAYMENT_GATEWAY)."},
+    {"name": "event_timestamp", "type": {"type": "long", "logicalType": "timestamp-millis"}, "doc": "When the event happened, from the event envelope."},
+    {"name": "reference_id", "type": ["null", "string"], "default": null, "doc": "Reference as received."},
+    {"name": "reference_key", "type": ["null", "string"], "default": null, "doc": "Upper-cased reference with non-alphanumeric characters removed, for fuzzy matching."},
+    {"name": "transaction_type", "type": ["null", "string"], "default": null},
+    {"name": "amount_value", "type": ["null", {"type": "bytes", "logicalType": "decimal", "precision": 18, "scale": 2}], "default": null, "doc": "Exact decimal amount. Null when the source sent no amount."},
+    {"name": "amount_currency", "type": ["null", "string"], "default": null},
+    {"name": "status", "type": ["null", "string"], "default": null, "doc": "Raw status as received."},
+    {"name": "canonical_status", "type": "string", "doc": "One of COMPLETED, FAILED, PENDING, UNKNOWN."},
+    {"name": "merchant_id", "type": ["null", "string"], "default": null},
+    {"name": "customer_id", "type": ["null", "string"], "default": null},
+    {"name": "settlement_id", "type": ["null", "string"], "default": null, "doc": "Grouping key. Not unique: split settlements share one."},
+    {"name": "description", "type": ["null", "string"], "default": null},
+    {"name": "processed_at", "type": {"type": "long", "logicalType": "timestamp-millis"}, "doc": "When this service produced the record, not when the transaction happened."}
+  ]
+}
