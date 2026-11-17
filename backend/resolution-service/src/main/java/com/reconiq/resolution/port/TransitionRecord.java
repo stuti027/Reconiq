@@ -8,8 +8,19 @@ public record TransitionRecord(
         CaseState fromState,
         CaseState toState,
         ResolutionAction action,
+        String actor,
         String reason,
         Instant transitionedAt) {
+
+    public TransitionRecord(
+            String caseId,
+            CaseState fromState,
+            CaseState toState,
+            ResolutionAction action,
+            String reason,
+            Instant transitionedAt) {
+        this(caseId, fromState, toState, action, null, reason, transitionedAt);
+    }
 
     public TransitionRecord {
         Objects.requireNonNull(caseId, "caseId must not be null");
