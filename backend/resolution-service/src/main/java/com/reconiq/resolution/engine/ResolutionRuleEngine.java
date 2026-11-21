@@ -9,6 +9,7 @@ import com.reconiq.resolution.port.ResolutionAction;
 import com.reconiq.resolution.workflow.StateTransitionEngine;
 import com.reconiq.resolution.workflow.WorkflowTransition;
 import com.reconiq.resolution.workflow.WorkflowValidationException;
+import com.reconiq.resolution.workflow.CaseNotFoundException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +50,7 @@ public class ResolutionRuleEngine {
         Objects.requireNonNull(result, "result must not be null");
 
         CaseSnapshot snapshot = casePersistencePort.findById(result.caseId())
-                .orElseThrow(() -> new WorkflowValidationException("Case " + result.caseId() + " does not exist"));
+                .orElseThrow(() -> new CaseNotFoundException(result.caseId()));
         if (hasAlreadyPassedInvestigation(snapshot.state())) {
             return new ResolutionRuleResult(
                     result.caseId(),

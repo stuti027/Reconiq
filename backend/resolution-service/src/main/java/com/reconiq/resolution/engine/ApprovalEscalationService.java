@@ -9,6 +9,7 @@ import com.reconiq.resolution.port.TransitionRecord;
 import com.reconiq.resolution.workflow.StateTransitionEngine;
 import com.reconiq.resolution.workflow.WorkflowTransition;
 import com.reconiq.resolution.workflow.WorkflowValidationException;
+import com.reconiq.resolution.workflow.CaseNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -69,6 +70,7 @@ public class ApprovalEscalationService {
             String reviewerId,
             String notes,
             boolean closeImmediately) {
+        requireCase(caseId);
         CaseSnapshot rejected = stateTransitionEngine.transition(caseId, new WorkflowTransition(
                 CaseState.REJECTED,
                 null,
@@ -90,6 +92,7 @@ public class ApprovalEscalationService {
 
     @Transactional
     public CaseSnapshot reopenForInvestigation(String caseId, String actor, String reason) {
+        requireCase(caseId);
         return stateTransitionEngine.transition(caseId, new WorkflowTransition(
                 CaseState.INVESTIGATING,
                 null,
@@ -110,6 +113,6 @@ public class ApprovalEscalationService {
 
     private CaseSnapshot requireCase(String caseId) {
         return casePersistencePort.findById(caseId)
-                .orElseThrow(() -> new WorkflowValidationException("Case " + caseId + " does not exist"));
+                .orElseThrow(() -> new CaseNotFoundException(caseId));
     }
 }
