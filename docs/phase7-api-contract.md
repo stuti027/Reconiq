@@ -72,7 +72,9 @@ Request: `?page=0&size=25` (page starts at 0; `size` default 25, max 100).
 
 ### 1.7 Who is calling (dev mode)
 - With `AUTH_MODE=dev`, the frontend sends `X-Dev-User: <name>|<ROLE>`, e.g. `X-Dev-User: asha|REVIEWER`.
-- Roles: `VIEWER`, `REVIEWER`, `ADMIN`.
+- Roles: `VIEWER`, `REVIEWER`, `ADMIN` (case doesn't matter).
+- No header means the user `dev` with role `VIEWER`. A malformed header (no `|`, empty name, unknown role) is 400.
+- CORS: the API allows browser calls from `http://localhost:5173` (env `CORS_ALLOWED_ORIGINS`, comma-separated), methods GET/POST, headers `X-Dev-User`, `Authorization`, `Content-Type`.
 - From part 7.10 the header is replaced by `Authorization: Bearer <token>`. Endpoints don't change.
 
 ---

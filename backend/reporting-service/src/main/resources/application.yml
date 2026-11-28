@@ -8,12 +8,17 @@ spring:
     # Read-only role reconiq_reporting (created by docker/postgres/reporting-readonly.sql).
     url: ${REPORTING_DB_URL:jdbc:postgresql://127.0.0.1:5432/reconiq_db}
     username: ${REPORTING_DB_USER:reconiq_reporting}
-    password: ${REPORTING_DB_PASSWORD:}
+    # Local development default, set by reporting-readonly.sql. Override it outside local development.
+    password: ${REPORTING_DB_PASSWORD:reporting_readonly_dev}
     hikari:
       read-only: true
 
 reporting:
+  # dev = X-Dev-User header, everyone allowed; keycloak = token login (part 8.8).
   auth-mode: ${AUTH_MODE:dev}
+  cors:
+    # Comma-separated list of browser origins allowed to call this API.
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
   services:
     phase2-url: ${PHASE2_URL:http://127.0.0.1:8090}
     phase4-url: ${PHASE4_URL:http://127.0.0.1:8000}
