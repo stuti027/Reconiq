@@ -1,0 +1,26 @@
+server:
+  port: ${REPORTING_PORT:8095}
+
+spring:
+  application:
+    name: reporting-service
+  datasource:
+    # Read-only role reconiq_reporting (created by docker/postgres/reporting-readonly.sql).
+    url: ${REPORTING_DB_URL:jdbc:postgresql://127.0.0.1:5432/reconiq_db}
+    username: ${REPORTING_DB_USER:reconiq_reporting}
+    password: ${REPORTING_DB_PASSWORD:}
+    hikari:
+      read-only: true
+
+reporting:
+  auth-mode: ${AUTH_MODE:dev}
+  services:
+    phase2-url: ${PHASE2_URL:http://127.0.0.1:8090}
+    phase4-url: ${PHASE4_URL:http://127.0.0.1:8000}
+    phase5-url: ${PHASE5_URL:http://127.0.0.1:8085}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
