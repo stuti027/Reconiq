@@ -42,6 +42,7 @@ The frontend checks `value?.available === false`.
 | `PHASE6_NOT_BUILT` | Phase 6 output doesn't exist yet |
 | `NO_DATA_YET` | The source exists but has no rows, so a rate would divide by zero |
 | `SERVICE_DOWN` | The service holding the data didn't answer |
+| `RAW_EVENT_NOT_FOUND` | Phase 1 has no raw row for this `event_id` (2.8) |
 
 ### 1.4 Counts and rates
 - Counts are JSON integers.
